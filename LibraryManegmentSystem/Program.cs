@@ -28,10 +28,10 @@
                 Console.WriteLine("3. Exit");
                 var signInChoice = 0;
                 signInChoice = Convert.ToInt32(Console.ReadLine());
-                libDo = true;
                 switch(signInChoice)
                 {
                     case 1:
+                        patronDo = true;
                         while(patronDo)
                         {
                             PatronScreen();
@@ -39,6 +39,7 @@
                         break;
                     
                     case 2:
+                        libDo = true;
                         while(libDo)
                         {
                             LibrarianScreen();
@@ -49,7 +50,6 @@
                         doComplete = false;
                         break;
                 }
-
             }
             catch
             {
@@ -89,6 +89,7 @@
                         break;
                     
                     case 2:
+                        patronChoiceDo = true;
                         while(patronChoiceDo)
                         {
                             EnterPatronChoice();
@@ -122,14 +123,35 @@
                         AddPatron();
                         break;
                     case 2:
+                        ShowAllPatrons();
                         break;
 
                     case 3:
+                        EditPatronInfo();
                         break;
                     
                     case 4:
                         patronChoiceDo = false;
                         break;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        void EditPatronInfo()
+        {
+            
+        }
+        void ShowAllPatrons()
+        {
+            try
+            {
+                Console.WriteLine("Patrons Names");
+                foreach(Patron patroni in patrons)
+                {
+                    Console.WriteLine(patroni.name);
                 }
             }
             catch
