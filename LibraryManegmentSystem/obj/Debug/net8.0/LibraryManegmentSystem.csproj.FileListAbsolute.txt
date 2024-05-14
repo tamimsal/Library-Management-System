@@ -1,0 +1,14 @@
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/bin/Debug/net8.0/LibraryManegmentSystem
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/bin/Debug/net8.0/LibraryManegmentSystem.deps.json
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/bin/Debug/net8.0/LibraryManegmentSystem.runtimeconfig.json
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/bin/Debug/net8.0/LibraryManegmentSystem.dll
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/bin/Debug/net8.0/LibraryManegmentSystem.pdb
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.GeneratedMSBuildEditorConfig.editorconfig
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.AssemblyInfoInputs.cache
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.AssemblyInfo.cs
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.csproj.CoreCompileInputs.cache
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.dll
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/refint/LibraryManegmentSystem.dll
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.pdb
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.genruntimeconfig.cache
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/ref/LibraryManegmentSystem.dll
