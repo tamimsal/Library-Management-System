@@ -12,3 +12,4 @@
 /Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.pdb
 /Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.genruntimeconfig.cache
 /Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/ref/LibraryManegmentSystem.dll
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.sourcelink.json
