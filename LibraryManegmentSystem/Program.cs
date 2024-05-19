@@ -12,6 +12,7 @@
         bool libDo = true;  
         bool bookDo = true;
         bool patronChoiceDo = true; 
+
         while(doComplete)
         {
             MainScreen();
@@ -624,7 +625,6 @@ class Patron
     }
 }
 
-
 //to do: 
 // empty inputs
 // out of range inputs
@@ -632,3 +632,5 @@ class Patron
 // sign up system and login system
 // Patron screen and system
 // use files in program strucute
+// N-tier 
+// agile vs waterfall, scrum master
