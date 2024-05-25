@@ -14,13 +14,16 @@ namespace BookClass
 
         public int borrowById {set; get;}
 
-        public Book(int newId, string newTitle, string newAuthor, string newPD, string newGenre, bool newava){
+        public Book(int newId, string newTitle, string newAuthor, string newPD, string newGenre, bool newava, DateTime dateBorrowed, DateTime beReturedDate, int IdBorrowed){
             id = newId;
             title = newTitle;
             author = newAuthor;
             publihedDate = newPD;
             genre = newGenre;
             avaliable = newava;
+            borrowDate = dateBorrowed;
+            toBeRetaurnedDate = beReturedDate;
+            borrowById = IdBorrowed;
         }
     
         public Book(){

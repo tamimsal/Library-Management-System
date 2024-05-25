@@ -160,7 +160,11 @@ namespace PatronManegment
 
                 var patronPhone = EnterPatronPhoneNumber(phoneNumbers);
                 patronId++;
-                Patron newPatron = new Patron(patronId,patronName, patronPhone, patronEmail);
+                List<Book> borroweds = new List<Book>();
+
+                Patron newPatron = new Patron(patronId,patronName, patronPhone, patronEmail, borroweds);
+    
+
                 patrons.Add(newPatron);
 
             }

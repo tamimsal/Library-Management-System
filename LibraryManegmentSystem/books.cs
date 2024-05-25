@@ -54,7 +54,9 @@ namespace bookManegment
                                where patroni.patId == patronIdToCheckOut
                                select patroni;
 
-                patroned.First().borrowedBooks.Add(ebook.First());
+                Book toAdd = ebook.First();
+                patroned.First().borrowedBooks.Add(toAdd);
+                Console.WriteLine(patroned.First().borrowedBooks.First().title);
 
                 ebook.First().avaliable = false;
                 ebook.First().borrowDate = DateTime.Now;
@@ -196,7 +198,10 @@ namespace bookManegment
                 Console.WriteLine("Enter book genre");
                 string? bookGenre = Console.ReadLine();
                 ids++;
-                Book newBook = new Book(ids,bookTitle,bookAuthor,publihedDate,bookGenre, true);
+                DateTime borrowedDate = DateTime.Now ,dateToBeRet = DateTime.Now;
+                int PatId = 0;
+
+                Book newBook = new Book(ids,bookTitle,bookAuthor,publihedDate,bookGenre, true,borrowedDate,dateToBeRet,PatId);
                 books.Add(newBook);
             }
             catch{
