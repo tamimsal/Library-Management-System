@@ -1,5 +1,4 @@
 using System.Threading.Tasks.Dataflow;
-using bookManegment;
 using MainProgram;
 using PatronClass;
 using BookClass;
@@ -161,12 +160,8 @@ namespace PatronManegment
                 var patronPhone = EnterPatronPhoneNumber(phoneNumbers);
                 patronId++;
                 List<Book> borroweds = new List<Book>();
-
                 Patron newPatron = new Patron(patronId,patronName, patronPhone, patronEmail, borroweds);
-    
-
                 patrons.Add(newPatron);
-
             }
             catch
             {

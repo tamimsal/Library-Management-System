@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using PatronManegment;
-using bookManegment;
 using BookClass;
 using PatronClass;
+using BookService;
+using Transactions;
+
 namespace MainProgram{
 class MainClass
 {
@@ -93,7 +95,7 @@ class MainClass
                         bookDo = true;
                         while(bookDo)
                         {
-                            MainMan.EnterBookChoice(books,ref bookDo,ids);
+                            BookServe.EnterBookChoice(books,ref bookDo,ids);
                         }
                         break;
                     
@@ -105,7 +107,7 @@ class MainClass
                         }
                         break;
                     case 3:
-                        MainMan.CheckOutBook(ref books,ref patrons);
+                        TransactionsServices.CheckOutBook(ref books,ref patrons);
                         break;
                     case 4:
                         libDo = false;
