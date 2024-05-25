@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using PatronManegment;
 using bookManegment;
-
+using BookClass;
+using PatronClass;
 namespace MainProgram{
 class MainClass
 {
@@ -92,7 +93,7 @@ class MainClass
                         bookDo = true;
                         while(bookDo)
                         {
-                            MainMan.EnterBookChoice(books,bookDo,ids );
+                            MainMan.EnterBookChoice(books,ref bookDo,ids);
                         }
                         break;
                     
@@ -100,11 +101,11 @@ class MainClass
                         patronChoiceDo = true;
                         while(patronChoiceDo)
                         {
-                            MainPat.EnterPatronChoice(patrons, phoneNumbers, patronChoiceDo, patronId);
+                            MainPat.EnterPatronChoice(ref patrons, ref phoneNumbers, ref patronChoiceDo, patronId, books);
                         }
                         break;
                     case 3:
-                        MainMan.CheckOutBook(books,patrons);
+                        MainMan.CheckOutBook(ref books,ref patrons);
                         break;
                     case 4:
                         libDo = false;
@@ -130,6 +131,7 @@ class MainClass
 // id system
 // sign up system and login system
 // Patron screen and system
-// use files in program strucute
 // N-tier 
 // agile vs waterfall, scrum master
+// ragex ?
+// dependancy injection

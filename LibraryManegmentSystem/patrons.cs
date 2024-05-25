@@ -1,13 +1,15 @@
+using System.Threading.Tasks.Dataflow;
 using bookManegment;
 using MainProgram;
-
+using PatronClass;
+using BookClass;
 
 namespace PatronManegment
 {
     class MainPat
     {
 
-        public static void EnterPatronChoice(List<Patron>patrons, List<string>phoneNumbers, bool patronChoiceDo, int patronId)
+        public static void EnterPatronChoice(ref List<Patron>patrons, ref List<string>phoneNumbers, ref bool patronChoiceDo, int patronId, List<Book>books)
         {
             try
             {
@@ -16,22 +18,25 @@ namespace PatronManegment
                 Console.WriteLine("1. Add Patron");
                 Console.WriteLine("2. Show all Patrons");
                 Console.WriteLine("3. Edit Patron info.");
-                Console.WriteLine("4. Back");
+                Console.WriteLine("4. Show books borrowed by patron");
+                Console.WriteLine("5. Back");
                 int patronChoice = Convert.ToInt32(Console.ReadLine());
                 
                 switch(patronChoice){
                     case 1:
-                        AddPatron(patrons, phoneNumbers, patronId);
+                        AddPatron(ref patrons, ref phoneNumbers, patronId);
                         break;
                     case 2:
-                        ShowAllPatrons(patrons);
+                        ShowAllPatrons(ref patrons);
                         break;
 
                     case 3:
-                        EditPatronInfoById(patrons, phoneNumbers);
+                        EditPatronInfoById(ref patrons, ref phoneNumbers);
                         break;
-                    
                     case 4:
+                        ShowPatronBooks(ref patrons, ref books);
+                        break;
+                    case 5:
                         patronChoiceDo = false;
                         break;
                 }
@@ -41,7 +46,36 @@ namespace PatronManegment
 
             }
         }
-        public static void EditPatronInfoById(List<Patron>patrons, List<string>phoneNumbers)
+
+        public static void ShowPatronBooks(ref List<Patron>patrons, ref List<Book>books){
+            try{
+                Console.WriteLine("Patron Names:");
+                foreach(Patron patroni in patrons)
+                {
+                    Console.WriteLine(patroni.patId + ", " + patroni.name + ", " + patroni.email);
+                }
+                Console.WriteLine("Enter patron id to show books:");
+                var patronIdtoShow = Convert.ToInt32(Console.ReadLine());
+                var borrowed = from pat in patrons
+                               where pat.patId == patronIdtoShow
+                               select pat.borrowedBooks;
+                
+                foreach(var id in borrowed)
+                {
+                    var booki = from booka in books
+                                where booka.id == id.First().id
+                                select booka;
+                    Console.WriteLine(booki.First().title);
+                }
+                
+
+            }
+            catch
+            {
+
+            }
+        }
+        public static void EditPatronInfoById(ref List<Patron>patrons, ref List<string>phoneNumbers)
         {
             try
             {
@@ -99,7 +133,7 @@ namespace PatronManegment
 
             }
         }
-        public static void ShowAllPatrons(List<Patron> patrons)
+        public static void ShowAllPatrons( ref List<Patron> patrons)
         {
             try
             {
@@ -115,7 +149,7 @@ namespace PatronManegment
             }
         }
 
-        public static void AddPatron(List<Patron>patrons, List<string>phoneNumbers, int patronId)
+        public static void AddPatron(ref List<Patron>patrons, ref List<string>phoneNumbers, int patronId)
         {
             try{
                 Console.WriteLine("--------------------------------");
@@ -194,22 +228,6 @@ namespace PatronManegment
         
 }
     }
-    class Patron
-    {
-        public int patId {set; get;}
-        public string name {set; get;}
-        public string phoneNumber {set; get;}
-        public string email {set; get;}
-        public List<int> borrowedBooks {set; get;}
-        public Patron(int newId, string newName, string newPhone, string newEmail){
-            patId = newId;
-            name = newName;
-            phoneNumber = newPhone;
-            email = newEmail;
-        }
-        public Patron(){
-
-        }
-    }
+    
 
 

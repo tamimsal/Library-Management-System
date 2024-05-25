@@ -1,12 +1,14 @@
 using PatronManegment;
 using MainProgram;
+using System.Security.Cryptography.X509Certificates;
+using System.Diagnostics;
+using BookClass;
+using PatronClass;
 namespace bookManegment
 {
     class MainMan
     {
-        int ids = 0;
-
-        public static void CheckOutBook(List<Book> books, List<Patron> patrons)
+        public static void CheckOutBook(ref List<Book> books,ref List<Patron> patrons)
         {   
             try
             {
@@ -43,24 +45,23 @@ namespace bookManegment
                 Console.WriteLine("Enter patron id to checkout:");
                 patronIdToCheckOut = Convert.ToInt32(Console.ReadLine());
 
-                foreach(Patron patroni in patrons)
-                {
-                    if(patroni.patId == patronIdToCheckOut)
-                    {
-                        patroni.borrowedBooks.Add(idToCheckOut);
-                    }
-                }
 
-                foreach(Book booki in books)
-                {
-                    if(booki.id == idToCheckOut)
-                    {
-                        booki.avaliable = false;
-                        booki.borrowDate = DateTime.Now;
-                        booki.toBeRetaurnedDate = DateTime.Now.AddDays(14);
-                        booki.borrowById = patronIdToCheckOut;
-                    }
-                }
+                var ebook = from booki in books
+                            where booki.id == idToCheckOut
+                            select booki;
+                
+                var patroned = from patroni in patrons
+                               where patroni.patId == patronIdToCheckOut
+                               select patroni;
+
+                patroned.First().borrowedBooks.Add(ebook.First());
+
+                ebook.First().avaliable = false;
+                ebook.First().borrowDate = DateTime.Now;
+                ebook.First().toBeRetaurnedDate = DateTime.Now.AddDays(14);
+                ebook.First().borrowById = patronIdToCheckOut;
+                Console.WriteLine(ebook.First().avaliable);
+        
             }
             catch
             {
@@ -138,7 +139,7 @@ namespace bookManegment
             }
             return idOfSearchedBook;
         }
-        public static void EnterBookChoice(List<Book> books, bool bookDo, int ids)
+        public static void EnterBookChoice(List<Book> books,ref bool bookDo, int ids)
         {
             try
             {
@@ -175,6 +176,7 @@ namespace bookManegment
                     case 6:
                         bookDo = false;
                         break;
+                        
                 }
             }
             catch{
@@ -287,31 +289,4 @@ namespace bookManegment
         }
     }
 
-    }
-    class Book
-    {
-        public int id {get; set;}
-        public string title {set;get;}
-        public string author {get; set;}
-        public string publihedDate {set; get;}
-        public string genre {set; get;}
-
-        public bool avaliable {get;set;}
-        public DateTime borrowDate {set; get;}
-        public DateTime toBeRetaurnedDate {set; get;}
-
-        public int borrowById {set; get;}
-
-        public Book(int newId, string newTitle, string newAuthor, string newPD, string newGenre, bool newava){
-            id = newId;
-            title = newTitle;
-            author = newAuthor;
-            publihedDate = newPD;
-            genre = newGenre;
-            avaliable = newava;
-        }
-    
-        public Book(){
-
-        }
     }
