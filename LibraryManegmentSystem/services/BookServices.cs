@@ -38,7 +38,7 @@ namespace BookService
                         break;
                     
                     case 4:
-                        DeleteBook();
+                        DeleteBook(books);
                         break;
                     case 5:
                         SearchForABook(books);
@@ -152,11 +152,30 @@ namespace BookService
             catch{
             }
         }
-        static void DeleteBook()
+        static void DeleteBook(List<Book> books)
         {
             try
             {
-
+                int searchChoice;
+                Console.WriteLine("Delete By: ");
+                Console.WriteLine("1. Book Id");
+                Console.WriteLine("2. Search for a book");
+                searchChoice = Convert.ToInt32(Console.ReadLine());
+                int bookID = 0;
+                switch(searchChoice)
+                {
+                    case 1:
+                        bookID = ChooseBookById(books);
+                        break;
+                    case 2:
+                        bookID = SearchForABook(books);
+                        break;
+                }
+                var toDeleteBook = from bookq in books
+                                   where bookq.id == bookID
+                                   select bookq;
+                books.Remove(toDeleteBook.First());
+                
             }   
             catch
             {
