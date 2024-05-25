@@ -1,13 +1,13 @@
-using System.Threading.Tasks.Dataflow;
-using MainProgram;
 using PatronClass;
 using BookClass;
 
-namespace PatronManegment
-{
-    class MainPat
-    {
 
+
+
+namespace PatronServices
+{
+    class PatronServe 
+    {
         public static void EnterPatronChoice(ref List<Patron>patrons, ref List<string>phoneNumbers, ref bool patronChoiceDo, int patronId, List<Book>books)
         {
             try
@@ -45,29 +45,35 @@ namespace PatronManegment
 
             }
         }
-
-        public static void ShowPatronBooks(ref List<Patron>patrons, ref List<Book>books){
+        public static void AddPatron(ref List<Patron>patrons, ref List<string>phoneNumbers, int patronId)
+        {
             try{
-                Console.WriteLine("Patron Names:");
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine("Enter patron name:");
+                var patronName = Console.ReadLine();
+
+                var patronEmail = EnterPatronEmail();
+
+                var patronPhone = EnterPatronPhoneNumber(phoneNumbers);
+                patronId++;
+                List<Book> borroweds = new List<Book>();
+                Patron newPatron = new Patron(patronId,patronName, patronPhone, patronEmail, borroweds);
+                patrons.Add(newPatron);
+            }
+            catch
+            {
+
+            }
+        }
+        public static void ShowAllPatrons( ref List<Patron> patrons)
+        {
+            try
+            {
+                Console.WriteLine("Patrons Names");
                 foreach(Patron patroni in patrons)
                 {
-                    Console.WriteLine(patroni.patId + ", " + patroni.name + ", " + patroni.email);
+                    Console.WriteLine(patroni.name);
                 }
-                Console.WriteLine("Enter patron id to show books:");
-                var patronIdtoShow = Convert.ToInt32(Console.ReadLine());
-                var borrowed = from pat in patrons
-                               where pat.patId == patronIdtoShow
-                               select pat.borrowedBooks;
-                
-                foreach(var id in borrowed)
-                {
-                    var booki = from booka in books
-                                where booka.id == id.First().id
-                                select booka;
-                    Console.WriteLine(booki.First().title);
-                }
-                
-
             }
             catch
             {
@@ -132,43 +138,34 @@ namespace PatronManegment
 
             }
         }
-        public static void ShowAllPatrons( ref List<Patron> patrons)
-        {
-            try
-            {
-                Console.WriteLine("Patrons Names");
+        public static void ShowPatronBooks(ref List<Patron>patrons, ref List<Book>books){
+            try{
+                Console.WriteLine("Patron Names:");
                 foreach(Patron patroni in patrons)
                 {
-                    Console.WriteLine(patroni.name);
+                    Console.WriteLine(patroni.patId + ", " + patroni.name + ", " + patroni.email);
                 }
+                Console.WriteLine("Enter patron id to show books:");
+                var patronIdtoShow = Convert.ToInt32(Console.ReadLine());
+                var borrowed = from pat in patrons
+                               where pat.patId == patronIdtoShow
+                               select pat.borrowedBooks;
+                
+                foreach(var id in borrowed)
+                {
+                    var booki = from booka in books
+                                where booka.id == id.First().id
+                                select booka;
+                    Console.WriteLine(booki.First().title);
+                }
+                
+
             }
             catch
             {
 
             }
         }
-
-        public static void AddPatron(ref List<Patron>patrons, ref List<string>phoneNumbers, int patronId)
-        {
-            try{
-                Console.WriteLine("--------------------------------");
-                Console.WriteLine("Enter patron name:");
-                var patronName = Console.ReadLine();
-
-                var patronEmail = EnterPatronEmail();
-
-                var patronPhone = EnterPatronPhoneNumber(phoneNumbers);
-                patronId++;
-                List<Book> borroweds = new List<Book>();
-                Patron newPatron = new Patron(patronId,patronName, patronPhone, patronEmail, borroweds);
-                patrons.Add(newPatron);
-            }
-            catch
-            {
-
-            }
-        }
-
         public static string EnterPatronEmail()
         {
             string patronEmail = "";
@@ -223,10 +220,6 @@ namespace PatronManegment
             }
             return phoneNumber;
         }
-
-        
-}
     }
-    
 
-
+}

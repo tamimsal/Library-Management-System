@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using PatronManegment;
 using BookClass;
 using PatronClass;
 using BookService;
 using Transactions;
+using PatronServices;
 
 namespace MainProgram{
 class MainClass
@@ -103,7 +103,7 @@ class MainClass
                         patronChoiceDo = true;
                         while(patronChoiceDo)
                         {
-                            MainPat.EnterPatronChoice(ref patrons, ref phoneNumbers, ref patronChoiceDo, patronId, books);
+                            PatronServe.EnterPatronChoice(ref patrons, ref phoneNumbers, ref patronChoiceDo, patronId, books);
                         }
                         break;
                     case 3:

@@ -1,5 +1,4 @@
 using BookClass;
-using PatronManegment;
 using MainProgram;
 using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics;
@@ -236,6 +235,27 @@ namespace BookService
             return idOfSearchedBook;
         }
 
+        static int ChooseBookById(List<Book> books)
+        {
+            int bookId = 0;
+            try{
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine("All Books");
+                foreach(Book Booki in books){
+                    if(Booki.avaliable == true){
+                        Console.WriteLine(Booki.id + ", " + Booki.title + ", " + Booki.author);
+                    }
+                }
+                Console.WriteLine("Enter book id to edit");
+                bookId = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+
+            }
+            return bookId;
+
+        }
 
     }
 }
