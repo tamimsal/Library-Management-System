@@ -46,6 +46,9 @@ namespace BookService
                     case 6:
                         bookDo = false;
                         break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
+                        break;
                         
                 }
             }
@@ -145,7 +148,9 @@ namespace BookService
                         {
                             boo.First().avaliable = false;
                         }
-                       
+                        break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
                         break;
                 }
             }
@@ -170,16 +175,19 @@ namespace BookService
                     case 2:
                         bookID = SearchForABook(books);
                         break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
+                        break;
                 }
                 var toDeleteBook = from bookq in books
                                    where bookq.id == bookID
                                    select bookq;
                 books.Remove(toDeleteBook.First());
+                Console.WriteLine("Book deleted Successfully");
                 
             }   
             catch
             {
-
             }
         }
         public static int SearchForABook(List<Book> books){
@@ -244,6 +252,9 @@ namespace BookService
                                 Console.WriteLine(booki.title + ", " + booki.author + ", " + booki.genre);
                             }
                         }
+                        break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
                         break;
                 }
             }

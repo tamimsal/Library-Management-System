@@ -36,6 +36,9 @@ namespace Transactions
                     case 2:
                         idToCheckOut = BookServe.SearchForABook(books);
                         break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
+                        break;
                 }
                 Console.WriteLine("Patron Names:");
                 foreach(Patron patroni in patrons)

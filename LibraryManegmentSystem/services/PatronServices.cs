@@ -38,6 +38,9 @@ namespace PatronServices
                     case 5:
                         patronChoiceDo = false;
                         break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
+                        break;
                 }
             }
             catch
@@ -130,6 +133,9 @@ namespace PatronServices
                                 patroni.phoneNumber = newPhone;
                             }
                         } 
+                        break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
                         break;
                 }
             }   

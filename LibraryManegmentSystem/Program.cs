@@ -40,6 +40,10 @@ class MainClass
                 signInChoice = Convert.ToInt32(Console.ReadLine());
                 switch(signInChoice)
                 {
+                    case 0:
+                        Console.WriteLine("Please enter one of the following choices");
+                        break;
+    
                     case 1:
                         patronDo = true;
                         while(patronDo)
@@ -58,6 +62,10 @@ class MainClass
                     
                     case 3:
                         doComplete = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
                         break;
                 }
             }
@@ -111,6 +119,9 @@ class MainClass
                         break;
                     case 4:
                         libDo = false;
+                        break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
                         break;
                 }
 
