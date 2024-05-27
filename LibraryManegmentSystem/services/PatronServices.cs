@@ -83,17 +83,13 @@ namespace PatronServices
                                where pat.patId == patronIdtoShow
                                select pat.borrowedBooks;
                 
-                foreach(var id in borrowed)
+                foreach(var book in borrowed.First())
                 {
-                    var booki = from booka in books
-                                where booka.id == id.First().id
-                                select booka;
-                    Console.WriteLine(booki.First().title);
+                    Console.WriteLine(book.title);
                 }
             }
             catch
             {
-
             }
         }
         public static int SeatchForAPatron(List<Patron> patrons)

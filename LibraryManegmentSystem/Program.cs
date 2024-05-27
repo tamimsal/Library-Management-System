@@ -85,7 +85,7 @@ class MainClass
                 switch(patronScreenChoice)
                 {
                     case 1:
-                        
+
                         break;
                     
                     case 2:
@@ -125,7 +125,7 @@ class MainClass
                         bookDo = true;
                         while(bookDo)
                         {
-                            BookServe.EnterBookChoice(books,ref bookDo,ids);
+                            BookServe.EnterBookChoice(books,ref bookDo,ref ids);
                         }
                         break;
                     

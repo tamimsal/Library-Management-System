@@ -16,8 +16,5 @@ namespace PatronClass
             email = newEmail;
             borrowedBooks = borrowed;
         }
-        public Patron(){
-
-        }
     }
 }

@@ -32,14 +32,12 @@ namespace PatronRepos
                 {
                     Console.WriteLine(patroni.patId + ", " + patroni.name + ", " + patroni.email);
                 }
-                var patronIdtoEdit = UtilsClass.EnterNotEmptyInt("Enter patron id to edit:");;
-
+                var patronIdtoEdit = UtilsClass.EnterNotEmptyInt("Enter patron id to edit:");
                 Console.WriteLine("1. Patron name");
                 Console.WriteLine("2. Patron email");
                 Console.WriteLine("3. Patron phone number");
                 Console.WriteLine("What do you want to edit:");
                 var editChoice = UtilsClass.EnterNotEmptyInt("");
-
                 switch(editChoice)
                 {
                     case 1:
@@ -87,10 +85,9 @@ namespace PatronRepos
             {
                 
             }
-            catch{
+            catch
+            {
             }
         }
-
-        
     }
 }

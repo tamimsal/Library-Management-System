@@ -6,7 +6,7 @@ namespace BookRepos
 {
     class BookCRUD
     {
-        public static void AddBook(List<Book>books, int ids)
+        public static void AddBook(List<Book>books, ref int ids)
         {
             try{
                 string bookTitle = UtilsClass.EnterNotEmptyString("Enter book title: \n");

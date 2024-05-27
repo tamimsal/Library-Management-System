@@ -44,7 +44,6 @@ namespace utils
             }
             catch
             {
-
             }
             return phoneNumber;
         }
@@ -68,7 +67,6 @@ namespace utils
             }
             catch
             {
-                
             }
             return patronEmail;
         }   
@@ -86,7 +84,8 @@ namespace utils
                     Console.WriteLine("You didn't enter a proper number!");
                 }
             }
-            catch{
+            catch
+            {
             }
             return num;
         }

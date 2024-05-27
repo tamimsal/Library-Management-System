@@ -11,7 +11,7 @@ namespace BookService
 {
     class BookServe 
     {
-        public static void EnterBookChoice(List<Book> books,ref bool bookDo, int ids)
+        public static void EnterBookChoice(List<Book> books,ref bool bookDo,ref int ids)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace BookService
                 int choice = UtilsClass.EnterNotEmptyInt("");
                 switch(choice){
                     case 1:
-                        BookCRUD.AddBook(books, ids);
+                        BookCRUD.AddBook(books,ref ids);
                         break;
                     
                     case 2:
@@ -165,8 +165,15 @@ namespace BookService
                         Console.WriteLine(Booki.id + ", " + Booki.title + ", " + Booki.author);
                     }
                 }
-                Console.WriteLine("Enter book id to edit");
+                Console.WriteLine("Enter book id");
                 bookId = UtilsClass.EnterNotEmptyInt("");
+                var foundBook = from book in books
+                                where book.id == bookId
+                                select book;
+                if(foundBook.First().id == bookId)
+                {
+                    Console.WriteLine("No books selected");
+                }
             }
             catch
             {
