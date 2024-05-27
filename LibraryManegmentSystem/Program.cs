@@ -4,6 +4,7 @@ using PatronClass;
 using BookService;
 using Transactions;
 using PatronServices;
+using utils;
 
 namespace MainProgram{
 class MainClass
@@ -20,12 +21,10 @@ class MainClass
         bool patronDo = true;
         bool libDo = true;  
         bool patronChoiceDo = true; 
-
         while(doComplete)
         {
             MainScreen();
         }
-
         void MainScreen()
         {
             try
@@ -71,14 +70,37 @@ class MainClass
             }
             catch
             {
-
             }
         }
+
         void PatronScreen()
         {
             try
             {
-                
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine("1. Show my books");
+                Console.WriteLine("2. Show all books");
+                Console.WriteLine("3. exit");
+                var patronScreenChoice = UtilsClass.EnterNotEmptyInt("Enter your choice: \n");
+                switch(patronScreenChoice)
+                {
+                    case 1:
+                        
+                        break;
+                    
+                    case 2:
+
+                        break;
+
+                    case 3:
+                        patronDo = false;  
+                        break;
+                    
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
+                        break;
+                }
+
             }
             catch
             {
