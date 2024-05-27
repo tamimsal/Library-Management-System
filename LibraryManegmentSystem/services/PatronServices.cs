@@ -1,5 +1,6 @@
 using PatronClass;
 using BookClass;
+using utils;
 
 
 
@@ -52,12 +53,11 @@ namespace PatronServices
         {
             try{
                 Console.WriteLine("--------------------------------");
-                Console.WriteLine("Enter patron name:");
-                var patronName = Console.ReadLine();
+                var patronName = UtilsClass.EnterNotEmptyString("Enter patron name: \n");
 
-                var patronEmail = EnterPatronEmail();
+                var patronEmail = UtilsClass.EnterPatronEmail();
 
-                var patronPhone = EnterPatronPhoneNumber(phoneNumbers);
+                var patronPhone = UtilsClass.EnterPatronPhoneNumber(phoneNumbers);
                 patronId++;
                 List<Book> borroweds = new List<Book>();
                 Patron newPatron = new Patron(patronId,patronName, patronPhone, patronEmail, borroweds);
@@ -104,8 +104,7 @@ namespace PatronServices
                 switch(editChoice)
                 {
                     case 1:
-                        Console.WriteLine("Enter new patron name");
-                        var newName = Console.ReadLine();
+                        var newName = UtilsClass.EnterNotEmptyString("Enter new patron name: \n");
                         foreach(Patron patroni in patrons)
                         {
                             if(patronIdtoEdit == patroni.patId)
@@ -115,7 +114,7 @@ namespace PatronServices
                         } 
                         break;
                     case 2:
-                        var newEmail = EnterPatronEmail();
+                        var newEmail = UtilsClass.EnterPatronEmail();
                         foreach(Patron patroni in patrons)
                         {
                             if(patronIdtoEdit == patroni.patId)
@@ -125,7 +124,7 @@ namespace PatronServices
                         } 
                         break;
                     case 3:
-                        var newPhone = EnterPatronPhoneNumber(phoneNumbers);
+                        var newPhone = UtilsClass.EnterPatronPhoneNumber(phoneNumbers);
                         foreach(Patron patroni in patrons)
                         {
                             if(patronIdtoEdit == patroni.patId)
@@ -172,60 +171,7 @@ namespace PatronServices
 
             }
         }
-        public static string EnterPatronEmail()
-        {
-            string patronEmail = "";
-            try
-            {
-                bool isOk = false;
-                while(!isOk){
-                    Console.WriteLine("Enter patron email:");
-                    patronEmail = Console.ReadLine();
-                    int firstCheckAt = patronEmail.IndexOf('@');
-                    int secondCheckDot = patronEmail.IndexOf('.');
-                    if(firstCheckAt < secondCheckDot && firstCheckAt > 0 && secondCheckDot < patronEmail.Length-1 && secondCheckDot - firstCheckAt > 1){
-                        isOk = true;
-                    }
-                    else{
-                        Console.WriteLine("Please enter valid email: name@exmaple.com");
-                    }
-                }
-            }
-            catch
-            {
-                
-            }
-            return patronEmail;
-        }   
-
-        public static string EnterPatronPhoneNumber(List<string> phoneNumbers)
-        {
-            string phoneNumber = "";
-            bool isOk = false;
-            try
-            {
-                while(!isOk)
-                {
-                    Console.WriteLine("Enter patron phone number:");
-                    phoneNumber = Console.ReadLine();
-                    int numric;
-                    bool isNumeric = int.TryParse(phoneNumber, out numric);
-                    if(isNumeric && phoneNumber.Length == 10 && !phoneNumbers.Contains(phoneNumber))
-                    {
-                        isOk = true;
-                        phoneNumbers.Add(phoneNumber);
-                    }
-                    else{
-                        Console.WriteLine("Please enter correct phone number: only numbers, not duplicated and 10 digits");
-                    }
-                }
-            }
-            catch
-            {
-
-            }
-            return phoneNumber;
-        }
+        
     }
 
 }

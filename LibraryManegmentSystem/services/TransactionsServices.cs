@@ -66,7 +66,6 @@ namespace Transactions
                 ebook.First().toBeRetaurnedDate = DateTime.Now.AddDays(14);
                 ebook.First().borrowById = patronIdToCheckOut;
                 Console.WriteLine(ebook.First().avaliable);
-        
             }
             catch
             {

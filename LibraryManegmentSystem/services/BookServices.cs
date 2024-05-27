@@ -4,7 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics;
 using PatronClass;
 using Transactions;
-
+using utils;
 namespace BookService
 {
     class BookServe 
@@ -23,7 +23,8 @@ namespace BookService
                 Console.WriteLine("6. Back");
 
                 int choice = Convert.ToInt32(Console.ReadLine());
-                
+               
+
                 switch(choice){
                     case 1:
                         AddBook(books, ids);
@@ -59,14 +60,10 @@ namespace BookService
         static void AddBook(List<Book>books, int ids)
         {
             try{
-                Console.WriteLine("Enter book title");
-                string? bookTitle = Console.ReadLine();
-                Console.WriteLine("Enter book author");
-                string? bookAuthor = Console.ReadLine();
-                Console.WriteLine("Enter book published date in dd/mm/yyyy");
-                string? publihedDate = Console.ReadLine();
-                Console.WriteLine("Enter book genre");
-                string? bookGenre = Console.ReadLine();
+                string bookTitle = UtilsClass.EnterNotEmptyString("Enter book title: \n");
+                string bookAuthor = UtilsClass.EnterNotEmptyString("Enter book author: \n");
+                string publihedDate = UtilsClass.EnterNotEmptyString("Enter book published date in dd/mm/yyyy : \n");
+                string? bookGenre = UtilsClass.EnterNotEmptyString("Enter book genre: \n");
                 ids++;
                 DateTime borrowedDate = DateTime.Now ,dateToBeRet = DateTime.Now;
                 int PatId = 0;
@@ -115,24 +112,20 @@ namespace BookService
                 switch(editChoice)
                 {
                     case 1:
-                        Console.WriteLine("Enter new title:");
-                        var newTitle = Console.ReadLine();
+                        var newTitle = UtilsClass.EnterNotEmptyString("Enter new title:");
                         boo.First().title = newTitle;
 
                         break;
                     case 2:
-                        Console.WriteLine("Enter new author:");
-                        var newAuthor = Console.ReadLine();
+                        var newAuthor = UtilsClass.EnterNotEmptyString("Enter new author:");
                         boo.First().author = newAuthor;
                         break;
                     case 3:
-                        Console.WriteLine("Enter new Published date vy dd/mm/yyyy:");
-                        var newPd = Console.ReadLine();
+                        var newPd = UtilsClass.EnterNotEmptyString("Enter new Published date vy dd/mm/yyyy:");
                         boo.First().publihedDate = newPd;
                         break;
                     case 4:
-                        Console.WriteLine("Enter new genre:");
-                        var newGenre = Console.ReadLine();
+                        var newGenre = UtilsClass.EnterNotEmptyString("Enter new genre:");
                         boo.First().genre = newGenre;
                         break;
                     case 5:
@@ -143,10 +136,15 @@ namespace BookService
                         if(newAva == 1)
                         {
                             boo.First().avaliable = true;
+                            Console.WriteLine("Status Channged Successufully");
                         }
-                        else
+                        else if(newAva == 0)
                         {
                             boo.First().avaliable = false;
+                            Console.WriteLine("Status Channged Successufully");
+                        }
+                        else{
+                            Console.WriteLine("Choose only 1 or 2 \n status not changed");
                         }
                         break;
                     default:

@@ -96,7 +96,7 @@ class MainClass
                 Console.WriteLine("3. Checkout a book");
                 Console.WriteLine("4. Back");
                 var libChoice = Convert.ToInt32(Console.ReadLine());
-
+                
                 switch(libChoice)
                 {
                     case 1:
@@ -135,7 +135,6 @@ class MainClass
 }
 //to do: 
 // empty inputs
-// out of range inputs
 // id system
 // sign up system and login system
 // Patron screen and system
