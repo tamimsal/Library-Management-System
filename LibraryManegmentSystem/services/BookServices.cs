@@ -58,6 +58,11 @@ namespace BookService
         public static void ShowAvaliableBooks(List<Book> books)
         {
             try{
+                if(books.Count == 0)
+                {
+                    Console.WriteLine("No books found");
+                    return;
+                }
                 var avaliableBooks = from booki in books 
                                      where booki.avaliable == true
                                      select booki;
@@ -68,72 +73,76 @@ namespace BookService
             }
             catch{}
         }
-        public static int SearchForABook(List<Book> books){
+        public static int SearchForABook(List<Book> books)
+        {
             var idOfSearchedBook = 0;
             try
             {
+                ShowAvaliableBooks(books);   
                 Console.WriteLine("Search By:");
                 Console.WriteLine("1. Book title");
                 Console.WriteLine("2. Book author");
                 Console.WriteLine("3. Book genre");
                 var searchChoice = UtilsClass.EnterNotEmptyInt("");
-
-                Console.WriteLine("All books");
-                foreach (Book booki in books)
-                {
-                    if(booki.avaliable == true){
-                        Console.WriteLine(booki.title + ", " + booki.author + ", " + booki.genre);
-                    }
-                }
                 Console.WriteLine("Searh:");
                 var searchWord = UtilsClass.EnterNotEmptyString("");
-
+                var count = 0;
                 switch(searchChoice)
                 {
                     case 1:
-                        foreach(Book booki in books)
+                        var foundBooks = from book in books
+                                         where book.title.Contains(searchWord)
+                                         select book;
+                        
+                        if(idOfSearchedBook == 0)
                         {
-                            if(booki.title.Contains(searchWord))
-                            {   
-                                if(idOfSearchedBook == 0)
-                                {
-                                    idOfSearchedBook = booki.id;
-                                }
-                                Console.WriteLine(booki.title + ", " + booki.author + ", " + booki.genre);
-                            }
+                            idOfSearchedBook = foundBooks.First().id;
+                        }
+                        foreach(var book in foundBooks)
+                        {
+                            Console.WriteLine(book.title + ", " + book.author + ", " + book.genre);
+                            count++;
                         }
                         break;
 
                     case 2:
-                        foreach(Book booki in books)
+                        var foundBooksA = from book in books
+                                         where book.author.Contains(searchWord)
+                                         select book;
+                        
+                        if(idOfSearchedBook == 0)
                         {
-                            if(booki.author.Contains(searchWord))
-                            {
-                                if(idOfSearchedBook == 0)
-                                {
-                                    idOfSearchedBook = booki.id;
-                                }
-                                Console.WriteLine(booki.title + ", " + booki.author + ", " + booki.genre);
-                            }
+                            idOfSearchedBook = foundBooksA.First().id;
                         }
+                        foreach(var book in foundBooksA)
+                        {
+                            Console.WriteLine(book.title + ", " + book.author + ", " + book.genre);
+                            count++;
+                        }                        
                         break;
                     
                     case 3:
-                        foreach(Book booki in books)
+                        var foundBooksG = from book in books
+                                         where book.title.Contains(searchWord)
+                                         select book;
+                        
+                        if(idOfSearchedBook == 0)
                         {
-                            if(booki.genre.Contains(searchWord))
-                            {
-                                if(idOfSearchedBook == 0)
-                                {
-                                    idOfSearchedBook = booki.id;
-                                }
-                                Console.WriteLine(booki.title + ", " + booki.author + ", " + booki.genre);
-                            }
+                            idOfSearchedBook = foundBooksG.First().id;
+                        }
+                        foreach(var book in foundBooksG)
+                        {
+                            Console.WriteLine(book.title + ", " + book.author + ", " + book.genre);
+                            count++;
                         }
                         break;
                     default:
                         Console.WriteLine("Please enter one of the following choices only.");
                         break;
+                }
+                if(count == 0)
+                {
+                    Console.WriteLine("No books found!");
                 }
             }
             catch
@@ -149,8 +158,10 @@ namespace BookService
             try{
                 Console.WriteLine("--------------------------------");
                 Console.WriteLine("All Books");
-                foreach(Book Booki in books){
-                    if(Booki.avaliable == true){
+                foreach(Book Booki in books)
+                {
+                    if(Booki.avaliable == true)
+                    {
                         Console.WriteLine(Booki.id + ", " + Booki.title + ", " + Booki.author);
                     }
                 }

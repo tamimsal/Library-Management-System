@@ -20,7 +20,8 @@ namespace PatronServices
                 Console.WriteLine("5. Search a patron");
                 Console.WriteLine("6. Back");
                 int patronChoice = UtilsClass.EnterNotEmptyInt("");
-                switch(patronChoice){
+                switch(patronChoice)
+                {
                     case 1:
                         PatronCRUD.AddPatron(ref patrons, ref phoneNumbers, patronId);
                         break;
@@ -54,6 +55,11 @@ namespace PatronServices
         {
             try
             {
+                if(patrons.Count == 0)
+                {
+                    Console.WriteLine("Not patrons found");
+                    return;
+                }
                 Console.WriteLine("Patrons Names");
                 foreach(Patron patroni in patrons)
                 {
@@ -95,11 +101,6 @@ namespace PatronServices
             int toReutrnId = 0;
             try
             {
-                if(patrons.Count == 0)
-                {
-                    Console.WriteLine("No patrons found!");
-                    return toReutrnId;
-                }
                 ShowAllPatrons(ref patrons);
                 Console.WriteLine("Search by: ");
                 Console.WriteLine("1. Name");
