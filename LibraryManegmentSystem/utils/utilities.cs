@@ -4,7 +4,7 @@ namespace utils
     {
         public static string EnterNotEmptyString(string inputPrompt)
         {
-            string notEmptyString = "";
+            string? notEmptyString = "";
             try{
                 do {
                     Console.Write(inputPrompt);
@@ -20,7 +20,6 @@ namespace utils
             {
             }
             return notEmptyString;
-
         }
         public static string EnterPatronPhoneNumber(List<string> phoneNumbers)
         {
@@ -73,6 +72,23 @@ namespace utils
             }
             return patronEmail;
         }   
+        public static int EnterNotEmptyInt(string EnterPrompt)
+        {
+            int num = 0;
+            try{
+                Console.WriteLine(EnterPrompt);
+                try
+                {
+                    num = Convert.ToInt32(Console.ReadLine());
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("You didn't enter a proper number!");
+                }
+            }
+            catch{
+            }
+            return num;
+        }
     }
-
 }

@@ -21,10 +21,7 @@ namespace BookService
                 Console.WriteLine("4. Delete book");
                 Console.WriteLine("5. Search for a book");
                 Console.WriteLine("6. Back");
-
-                int choice = Convert.ToInt32(Console.ReadLine());
-               
-
+                int choice = UtilsClass.EnterNotEmptyInt("");
                 switch(choice){
                     case 1:
                         AddBook(books, ids);
@@ -67,7 +64,6 @@ namespace BookService
                 ids++;
                 DateTime borrowedDate = DateTime.Now ,dateToBeRet = DateTime.Now;
                 int PatId = 0;
-
                 Book newBook = new Book(ids,bookTitle,bookAuthor,publihedDate,bookGenre, true,borrowedDate,dateToBeRet,PatId);
                 books.Add(newBook);
             }
@@ -105,7 +101,7 @@ namespace BookService
                 Console.WriteLine("4. Book genre");
                 Console.WriteLine("5. Book avaliability");
                 Console.WriteLine("What do you want to edit:");
-                var editChoice = Convert.ToInt32(Console.ReadLine());
+                var editChoice = UtilsClass.EnterNotEmptyInt("");
                 var boo = from book in books
                                   where book.id == bookId
                                   select book;
@@ -114,7 +110,6 @@ namespace BookService
                     case 1:
                         var newTitle = UtilsClass.EnterNotEmptyString("Enter new title:");
                         boo.First().title = newTitle;
-
                         break;
                     case 2:
                         var newAuthor = UtilsClass.EnterNotEmptyString("Enter new author:");
@@ -132,7 +127,7 @@ namespace BookService
                         Console.WriteLine("1. Available");
                         Console.WriteLine("2. Not Avaliable");
                         Console.WriteLine("Enter new avaliability:");
-                        var newAva = Convert.ToInt32(Console.ReadLine());
+                        var newAva = UtilsClass.EnterNotEmptyInt("");
                         if(newAva == 1)
                         {
                             boo.First().avaliable = true;
@@ -163,7 +158,7 @@ namespace BookService
                 Console.WriteLine("Delete By: ");
                 Console.WriteLine("1. Book Id");
                 Console.WriteLine("2. Search for a book");
-                searchChoice = Convert.ToInt32(Console.ReadLine());
+                searchChoice = UtilsClass.EnterNotEmptyInt("");
                 int bookID = 0;
                 switch(searchChoice)
                 {
@@ -182,7 +177,6 @@ namespace BookService
                                    select bookq;
                 books.Remove(toDeleteBook.First());
                 Console.WriteLine("Book deleted Successfully");
-                
             }   
             catch
             {
@@ -196,7 +190,7 @@ namespace BookService
                 Console.WriteLine("1. Book title");
                 Console.WriteLine("2. Book author");
                 Console.WriteLine("3. Book genre");
-                var searchChoice = Convert.ToInt32(Console.ReadLine());
+                var searchChoice = UtilsClass.EnterNotEmptyInt("");
 
                 Console.WriteLine("All books");
                 foreach (Book booki in books)
@@ -206,7 +200,7 @@ namespace BookService
                     }
                 }
                 Console.WriteLine("Searh:");
-                var searchWord = Console.ReadLine();
+                var searchWord = UtilsClass.EnterNotEmptyString("");
 
                 switch(searchChoice)
                 {
@@ -275,15 +269,12 @@ namespace BookService
                     }
                 }
                 Console.WriteLine("Enter book id to edit");
-                bookId = Convert.ToInt32(Console.ReadLine());
+                bookId = UtilsClass.EnterNotEmptyInt("");
             }
             catch
             {
-
             }
             return bookId;
-
         }
-
     }
 }

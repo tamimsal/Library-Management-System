@@ -124,7 +124,6 @@ class MainClass
                         Console.WriteLine("Please enter one of the following choices only.");
                         break;
                 }
-
             }
             catch{
 
@@ -134,7 +133,6 @@ class MainClass
 }
 }
 //to do: 
-// empty inputs
 // id system
 // sign up system and login system
 // Patron screen and system

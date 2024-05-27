@@ -2,9 +2,6 @@ using PatronClass;
 using BookClass;
 using utils;
 
-
-
-
 namespace PatronServices
 {
     class PatronServe 
@@ -20,8 +17,7 @@ namespace PatronServices
                 Console.WriteLine("3. Edit Patron info.");
                 Console.WriteLine("4. Show books borrowed by patron");
                 Console.WriteLine("5. Back");
-                int patronChoice = Convert.ToInt32(Console.ReadLine());
-                
+                int patronChoice = UtilsClass.EnterNotEmptyInt("");
                 switch(patronChoice){
                     case 1:
                         AddPatron(ref patrons, ref phoneNumbers, patronId);
@@ -80,7 +76,6 @@ namespace PatronServices
             }
             catch
             {
-
             }
         }
         public static void EditPatronInfoById(ref List<Patron>patrons, ref List<string>phoneNumbers)
@@ -92,14 +87,13 @@ namespace PatronServices
                 {
                     Console.WriteLine(patroni.patId + ", " + patroni.name + ", " + patroni.email);
                 }
-                Console.WriteLine("Enter patron id to edit:");
-                var patronIdtoEdit = Convert.ToInt32(Console.ReadLine());
+                var patronIdtoEdit = UtilsClass.EnterNotEmptyInt("Enter patron id to edit:");;
 
                 Console.WriteLine("1. Patron name");
                 Console.WriteLine("2. Patron email");
                 Console.WriteLine("3. Patron phone number");
                 Console.WriteLine("What do you want to edit:");
-                var editChoice = Convert.ToInt32(Console.ReadLine());
+                var editChoice = UtilsClass.EnterNotEmptyInt("");
 
                 switch(editChoice)
                 {
@@ -151,7 +145,7 @@ namespace PatronServices
                     Console.WriteLine(patroni.patId + ", " + patroni.name + ", " + patroni.email);
                 }
                 Console.WriteLine("Enter patron id to show books:");
-                var patronIdtoShow = Convert.ToInt32(Console.ReadLine());
+                var patronIdtoShow = UtilsClass.EnterNotEmptyInt("");
                 var borrowed = from pat in patrons
                                where pat.patId == patronIdtoShow
                                select pat.borrowedBooks;
@@ -163,8 +157,6 @@ namespace PatronServices
                                 select booka;
                     Console.WriteLine(booki.First().title);
                 }
-                
-
             }
             catch
             {
