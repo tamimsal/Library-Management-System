@@ -1,6 +1,7 @@
 using PatronClass;
 using utils;
 using BookClass;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PatronRepos
 {
@@ -78,8 +79,18 @@ namespace PatronRepos
             }   
             catch
             {
-
             }
         }
+        public static void DeletePatron(List<Patron> patrons)
+        {
+            try
+            {
+                
+            }
+            catch{
+            }
+        }
+
+        
     }
 }

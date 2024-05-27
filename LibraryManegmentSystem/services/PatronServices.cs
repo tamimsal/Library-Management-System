@@ -14,10 +14,11 @@ namespace PatronServices
                 Console.WriteLine("--------------------------------");
                 Console.WriteLine("Enter your choice:");
                 Console.WriteLine("1. Add Patron");
-                Console.WriteLine("2. Show all Patrons");
+                Console.WriteLine("2. Show all patrons");
                 Console.WriteLine("3. Edit Patron info.");
                 Console.WriteLine("4. Show books borrowed by patron");
-                Console.WriteLine("5. Back");
+                Console.WriteLine("5. Search a patron");
+                Console.WriteLine("6. Back");
                 int patronChoice = UtilsClass.EnterNotEmptyInt("");
                 switch(patronChoice){
                     case 1:
@@ -34,6 +35,9 @@ namespace PatronServices
                         ShowPatronBooks(ref patrons, ref books);
                         break;
                     case 5:
+                        SeatchForAPatron(patrons);
+                        break;
+                    case 6:
                         patronChoiceDo = false;
                         break;
                     default:
@@ -86,7 +90,84 @@ namespace PatronServices
 
             }
         }
-        
+        public static int SeatchForAPatron(List<Patron> patrons)
+        {
+            int toReutrnId = 0;
+            try
+            {
+                if(patrons.Count == 0)
+                {
+                    Console.WriteLine("No patrons found!");
+                    return toReutrnId;
+                }
+                ShowAllPatrons(ref patrons);
+                Console.WriteLine("Search by: ");
+                Console.WriteLine("1. Name");
+                Console.WriteLine("2. Email");
+                Console.WriteLine("3. Phone Number");
+                var patronSearchChoice = UtilsClass.EnterNotEmptyInt("Enter your choice from above: \n");
+                Console.WriteLine("Search: ");
+                var searchValue = UtilsClass.EnterNotEmptyString("");
+
+                switch(patronSearchChoice)  
+                {
+                    case 1:
+                        var searchName = from pat in patrons
+                                         where pat.name.Contains(searchValue)
+                                         select pat;
+                        var count = 0;
+                        foreach(var name in searchName)
+                        {
+                            Console.WriteLine("{0}, {1}, {2}", name.name, name.phoneNumber, name.email);
+                            count++;
+                        }
+                        if(count == 0)
+                        {
+                            Console.WriteLine("No patrons found with the name: {0}", searchValue);
+                        }
+                        break;
+                    
+                    case 2:
+                        var searchEmail = from pat in patrons
+                                         where pat.email.Contains(searchValue)
+                                         select pat;
+                        var countE = 0;
+                        foreach(var name in searchEmail)
+                        {
+                            Console.WriteLine("{0}, {1}, {2}", name.name, name.phoneNumber, name.email);
+                            countE++;
+                        }
+                        if(countE == 0)
+                        {
+                            Console.WriteLine("No patrons found with the email: {0}", searchValue);
+                        }
+                        break;
+
+                    case 3:
+                        var searchPhone = from pat in patrons
+                                         where pat.phoneNumber.Contains(searchValue)
+                                         select pat;
+                        var countP = 0;
+                        foreach(var name in searchPhone)
+                        {
+                            Console.WriteLine("{0}, {1}, {2}", name.name, name.phoneNumber, name.email);
+                            countP++;
+                        }
+                        if(countP == 0)
+                        {
+                            Console.WriteLine("No patrons found with the phone number: {0}", searchValue);
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
+                        break;
+                }
+            }
+            catch
+            {
+            }
+            return toReutrnId;
+        }
     }
 
 }
