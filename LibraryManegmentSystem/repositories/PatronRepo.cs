@@ -2,6 +2,8 @@ using PatronClass;
 using utils;
 using BookClass;
 using System.Security.Cryptography.X509Certificates;
+using System.Net;
+using PatronServices;
 
 namespace PatronRepos
 {
@@ -83,11 +85,65 @@ namespace PatronRepos
         {
             try
             {
-                
+                if(patrons.Count == 0)
+                {
+                    Console.WriteLine("No patrons found!");
+                    return;
+                }
+                int deleteChoice = 0;
+                Console.WriteLine("Delete by:");
+                Console.WriteLine("1. Search for patron");
+                Console.WriteLine("2. By patron id");
+                deleteChoice = UtilsClass.EnterNotEmptyInt("Enter your choice");
+                int deleteId = 0;
+                switch(deleteChoice)
+                {
+                    case 1:
+                        deleteId = PatronServe.SeatchForAPatron(patrons);
+                        break;
+                    
+                    case 2:
+                        deleteId = ChoosePatronById(patrons);
+                        break;
+                    
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
+                        DeletePatron(patrons);
+                        break;
+                }
+                var toDeletePatron = from patron in patrons
+                                     where patron.patId == deleteId
+                                     select patron;
+                patrons.Remove(toDeletePatron.First());
             }
             catch
             {
             }
+        }
+        static int ChoosePatronById(List<Patron> patrons)
+        {
+            int patronId = 0;
+            try
+            {
+                Console.WriteLine("Patron Names:");
+                foreach(Patron patroni in patrons)
+                {
+                    Console.WriteLine(patroni.patId + ", " + patroni.name + ", " + patroni.email);
+                }
+                patronId = UtilsClass.EnterNotEmptyInt("Enter patron id to edit:");
+                var found = from patron in patrons 
+                            where patron.patId == patronId
+                            select patron.patId;
+                if(!found.Contains(patronId))
+                {
+                    Console.WriteLine("Please enter one of the following choices only.");
+                    patronId = ChoosePatronById(patrons);
+                }
+            }
+            catch
+            {
+            }
+            return patronId;
         }
     }
 }

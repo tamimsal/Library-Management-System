@@ -71,7 +71,9 @@ namespace BookService
                     Console.WriteLine(booki.title);
                 }
             }
-            catch{}
+            catch
+            {
+            }
         }
         public static int SearchForABook(List<Book> books)
         {
@@ -104,7 +106,6 @@ namespace BookService
                             count++;
                         }
                         break;
-
                     case 2:
                         var foundBooksA = from book in books
                                          where book.author.Contains(searchWord)
@@ -120,7 +121,6 @@ namespace BookService
                             count++;
                         }                        
                         break;
-                    
                     case 3:
                         var foundBooksG = from book in books
                                          where book.title.Contains(searchWord)

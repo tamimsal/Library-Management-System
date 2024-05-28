@@ -18,7 +18,8 @@ namespace PatronServices
                 Console.WriteLine("3. Edit Patron info.");
                 Console.WriteLine("4. Show books borrowed by patron");
                 Console.WriteLine("5. Search a patron");
-                Console.WriteLine("6. Back");
+                Console.WriteLine("6. Delete patron");
+                Console.WriteLine("7. Back");
                 int patronChoice = UtilsClass.EnterNotEmptyInt("");
                 switch(patronChoice)
                 {
@@ -39,6 +40,9 @@ namespace PatronServices
                         SeatchForAPatron(patrons);
                         break;
                     case 6:
+                        PatronCRUD.DeletePatron(patrons);
+                        break;
+                    case 7:
                         patronChoiceDo = false;
                         break;
                     default:
@@ -113,6 +117,7 @@ namespace PatronServices
                                          where pat.name.Contains(searchValue)
                                          select pat;
                         var count = 0;
+                        toReutrnId = searchName.First().patId;
                         foreach(var name in searchName)
                         {
                             Console.WriteLine("{0}, {1}, {2}", name.name, name.phoneNumber, name.email);
@@ -129,6 +134,7 @@ namespace PatronServices
                                          where pat.email.Contains(searchValue)
                                          select pat;
                         var countE = 0;
+                        toReutrnId = searchEmail.First().patId;
                         foreach(var name in searchEmail)
                         {
                             Console.WriteLine("{0}, {1}, {2}", name.name, name.phoneNumber, name.email);
@@ -145,6 +151,7 @@ namespace PatronServices
                                          where pat.phoneNumber.Contains(searchValue)
                                          select pat;
                         var countP = 0;
+                        toReutrnId = searchPhone.First().patId;
                         foreach(var name in searchPhone)
                         {
                             Console.WriteLine("{0}, {1}, {2}", name.name, name.phoneNumber, name.email);

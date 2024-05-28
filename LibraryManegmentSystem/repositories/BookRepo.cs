@@ -31,8 +31,7 @@ namespace BookRepos
                         Console.WriteLine(Booki.id + ", " + Booki.title + ", " + Booki.author);
                     }
                 }
-                Console.WriteLine("Enter book id to edit");
-                var bookId = Convert.ToInt32(Console.ReadLine());
+                var bookId = UtilsClass.EnterNotEmptyInt("Enter book id to edit");
 
                 Console.WriteLine("1. Book title");
                 Console.WriteLine("2. Book author");
@@ -109,6 +108,7 @@ namespace BookRepos
                         break;
                     default:
                         Console.WriteLine("Please enter one of the following choices only.");
+                        DeleteBook(books);
                         break;
                 }
                 var toDeleteBook = from bookq in books
