@@ -85,11 +85,11 @@ class MainClass
                 switch(patronScreenChoice)
                 {
                     case 1:
-
+                        PatronServe.ShowPatronBooks(ref patrons, ref books);
                         break;
                     
                     case 2:
-
+                        BookServe.ShowAvaliableBooks(books);
                         break;
 
                     case 3:
