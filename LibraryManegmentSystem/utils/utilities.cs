@@ -1,3 +1,5 @@
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 namespace utils
 {   
     class UtilsClass
@@ -24,16 +26,17 @@ namespace utils
         public static string EnterPatronPhoneNumber(List<string> phoneNumbers)
         {
             string phoneNumber = "";
+            string pattern = @"0\d{9}";
+            Regex isCorrectPhoneNumber = new Regex(pattern);
+            
             bool isOk = false;
             try
             {
-                string phoneNumberPattern = "[0-9]{10}";
                 while(!isOk)
                 {
                     phoneNumber = EnterNotEmptyString("Enter patron phone number:");
                     int numric;
-                    bool isNumeric = int.TryParse(phoneNumber, out numric);
-                    if(isNumeric && phoneNumber.Length == 10 && !phoneNumbers.Contains(phoneNumber))
+                    if(isCorrectPhoneNumber.IsMatch(phoneNumber))
                     {
                         isOk = true;
                         phoneNumbers.Add(phoneNumber);
@@ -54,15 +57,19 @@ namespace utils
             try
             {
                 bool isOk = false;
+                string pattern = @"\w{1,50}@\w{1,50}.\w{1.50}";
+                Regex isEmailOk = new Regex(pattern);
                 while(!isOk){
                     patronEmail = EnterNotEmptyString("Enter patron email:");
-                    int firstCheckAt = patronEmail.IndexOf('@');
-                    int secondCheckDot = patronEmail.IndexOf('.');
-                    if(firstCheckAt < secondCheckDot && firstCheckAt > 0 && secondCheckDot < patronEmail.Length-1 && secondCheckDot - firstCheckAt > 1){
+                    try
+                    {
+                        MailAddress isMail = new MailAddress(patronEmail);
                         isOk = true;
                     }
-                    else{
+                    catch (FormatException)
+                    {
                         Console.WriteLine("Please enter valid email: name@exmaple.com");
+                        isOk = false;
                     }
                 }
             }
