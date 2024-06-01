@@ -147,8 +147,8 @@ class MainClass
                         break;
                 }
             }
-            catch{
-
+            catch
+            {
             }
         }
 }
@@ -156,8 +156,6 @@ class MainClass
 }
 //to do: 
 // id system
-// sign up system and login system
-// Patron screen and system
 // N-tier 
 // agile vs waterfall, scrum master
 // ragex ?

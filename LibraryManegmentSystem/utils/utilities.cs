@@ -27,6 +27,7 @@ namespace utils
             bool isOk = false;
             try
             {
+                string phoneNumberPattern = "[0-9]{10}";
                 while(!isOk)
                 {
                     phoneNumber = EnterNotEmptyString("Enter patron phone number:");
