@@ -4,14 +4,27 @@ using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics;
 using PatronClass;
 using Transactions;
+using LibraryManagementSystem.Repositories;
 using utils;
-using BookRepos;
+using LibraryManagementSystem.Interfaces;
 
 namespace BookService
 {
-    class BookServe 
+    class BookServe :  IBookService
     {
-        public static void EnterBookChoice(List<Book> books,ref bool bookDo,ref int ids)
+        private readonly IBookRepository _bookRepository;
+
+        public BookServe(IBookRepository bookRepository)
+        {
+            _bookRepository = bookRepository;
+        }
+
+        public BookServe()
+        {
+
+        }
+
+        public void EnterBookChoice(List<Book> books,ref bool bookDo,ref int ids)
         {
             try
             {
@@ -26,7 +39,10 @@ namespace BookService
                 int choice = UtilsClass.EnterNotEmptyInt("");
                 switch(choice){
                     case 1:
-                        BookCRUD.AddBook(books,ref ids);
+                        Book newBook = new() { };
+                        _bookRepository.AddBook(newBook);
+                        
+                        _bookRepository.AddBook(books,ref ids);
                         break;
                     
                     case 2:
@@ -34,11 +50,11 @@ namespace BookService
                         break;
 
                     case 3:
-                        BookCRUD.EditBookById(books);
+                        _bookRepository.EditBookById(books);
                         break;
                     
                     case 4:
-                        BookCRUD.DeleteBook(books);
+                        _bookRepository.DeleteBook(books);
                         break;
                     case 5:
                         SearchForABook(books);
@@ -55,7 +71,7 @@ namespace BookService
             catch{
             }
         }
-        public static void ShowAvaliableBooks(List<Book> books)
+        public void ShowAvaliableBooks(List<Book> books)
         {
             try{
                 if(books.Count == 0)
@@ -75,7 +91,7 @@ namespace BookService
             {
             }
         }
-        public static int SearchForABook(List<Book> books)
+        public int SearchForABook(List<Book> books)
         {
             var idOfSearchedBook = 0;
             try
@@ -152,7 +168,7 @@ namespace BookService
             return idOfSearchedBook;
         }
 
-        public static int ChooseBookById(List<Book> books)
+        public int ChooseBookById(List<Book> books)
         {
             int bookId = 0;
             try{

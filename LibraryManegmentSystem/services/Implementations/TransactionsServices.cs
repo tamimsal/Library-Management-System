@@ -12,8 +12,9 @@ namespace Transactions
         {   
             try
             {
+                BookServe book1 = new BookServe();
                 Console.WriteLine("All Books");
-                BookServe.ShowAvaliableBooks(books);
+                book1.ShowAvaliableBooks(books);
                 Console.WriteLine("Choose one method:");
                 Console.WriteLine("1. Checkout book by id");
                 Console.WriteLine("2. Search for a book:");
@@ -34,7 +35,7 @@ namespace Transactions
                         break;
                     
                     case 2:
-                        idToCheckOut = BookServe.SearchForABook(books);
+                        idToCheckOut = book1.SearchForABook(books);
                         break;
                     default:
                         Console.WriteLine("Please enter one of the following choices only.");

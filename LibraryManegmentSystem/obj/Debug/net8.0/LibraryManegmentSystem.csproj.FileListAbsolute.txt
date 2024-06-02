@@ -13,3 +13,8 @@
 /Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.genruntimeconfig.cache
 /Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/ref/LibraryManegmentSystem.dll
 /Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.sourcelink.json
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryManegmentSystem.csproj.AssemblyReference.cache
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/admin/Documents/Coding Projects/Console-based Library Management System/LibraryManegmentSystem/obj/Debug/net8.0/LibraryM.D88C111C.Up2Date

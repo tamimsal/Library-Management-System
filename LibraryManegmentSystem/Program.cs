@@ -5,12 +5,22 @@ using BookService;
 using Transactions;
 using PatronServices;
 using utils;
+using Microsoft.Extensions.DependencyInjection;
+using LibraryManagementSystem.Interfaces;
+using LibraryManagementSystem.Repositories;
 
 namespace MainProgram{
 class MainClass
 {
     static void Main(string[] args)
     {
+        var serviceProvider = new ServiceCollection()
+            .AddSingleton<IBookService, BookService.BookServe>()
+            .BuildServiceProvider();
+
+        // Resolve the IBookService
+        var bookService = serviceProvider.GetService<IBookService>();
+        
         var books = new List<Book>();
         var patrons = new List<Patron>();
         var phoneNumbers = new List<string>();
@@ -77,11 +87,13 @@ class MainClass
         {
             try
             {
+                
                 Console.WriteLine("---------------------------------");
                 Console.WriteLine("1. Show my books");
                 Console.WriteLine("2. Show all books");
                 Console.WriteLine("3. exit");
                 var patronScreenChoice = UtilsClass.EnterNotEmptyInt("Enter your choice: \n");
+                BookServe book1 = new BookServe();
                 switch(patronScreenChoice)
                 {
                     case 1:
@@ -89,7 +101,7 @@ class MainClass
                         break;
                     
                     case 2:
-                        BookServe.ShowAvaliableBooks(books);
+                        book1.ShowAvaliableBooks(books);
                         break;
 
                     case 3:
@@ -118,14 +130,14 @@ class MainClass
                 Console.WriteLine("3. Checkout a book");
                 Console.WriteLine("4. Back");
                 var libChoice = Convert.ToInt32(Console.ReadLine());
-                
+                BookServe book2 = new BookServe();
                 switch(libChoice)
                 {
                     case 1:
                         bookDo = true;
                         while(bookDo)
                         {
-                            BookServe.EnterBookChoice(books,ref bookDo,ref ids);
+                            book2.EnterBookChoice(books,ref bookDo,ref ids);
                         }
                         break;
                     
@@ -147,8 +159,8 @@ class MainClass
                         break;
                 }
             }
-            catch
-            {
+            catch{
+
             }
         }
 }
