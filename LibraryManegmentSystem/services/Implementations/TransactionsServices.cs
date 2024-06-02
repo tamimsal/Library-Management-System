@@ -44,7 +44,7 @@ namespace Transactions
                 Console.WriteLine("Patron Names:");
                 foreach(Patron patroni in patrons)
                 {
-                    Console.WriteLine(patroni.patId + ", " + patroni.name + ", " + patroni.email);
+                    Console.WriteLine(patroni.Id + ", " + patroni.Name + ", " + patroni.Email);
                 }
                 Console.WriteLine("Enter patron id to checkout:");
                 patronIdToCheckOut = Convert.ToInt32(Console.ReadLine());
@@ -55,12 +55,12 @@ namespace Transactions
                             select booki;
                 
                 var patroned = from patroni in patrons
-                               where patroni.patId == patronIdToCheckOut
+                               where patroni.Id == patronIdToCheckOut
                                select patroni;
 
                 Book toAdd = ebook.First();
-                patroned.First().borrowedBooks.Add(toAdd);
-                Console.WriteLine(patroned.First().borrowedBooks.First().title);
+                patroned.First().BorrowedBooks.Add(toAdd);
+                Console.WriteLine(patroned.First().BorrowedBooks.First().title);
 
                 ebook.First().avaliable = false;
                 ebook.First().borrowDate = DateTime.Now;

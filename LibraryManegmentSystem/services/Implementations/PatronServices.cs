@@ -2,10 +2,10 @@ using PatronClass;
 using BookClass;
 using utils;
 using PatronRepos;
-
+using LibraryManagementSystem.Interfaces;
 namespace PatronServices
 {
-    class PatronServe 
+    class PatronServe : IPatronServices
     {
         public static void EnterPatronChoice(ref List<Patron>patrons, ref List<string>phoneNumbers, ref bool patronChoiceDo, int patronId, List<Book>books)
         {
@@ -67,7 +67,7 @@ namespace PatronServices
                 Console.WriteLine("Patrons Names");
                 foreach(Patron patroni in patrons)
                 {
-                    Console.WriteLine(patroni.name);
+                    Console.WriteLine(patroni.Name);
                 }
             }
             catch
@@ -79,13 +79,13 @@ namespace PatronServices
                 Console.WriteLine("Patron Names:");
                 foreach(Patron patroni in patrons)
                 {
-                    Console.WriteLine(patroni.patId + ", " + patroni.name + ", " + patroni.email);
+                    Console.WriteLine(patroni.Id + ", " + patroni.Name + ", " + patroni.Email);
                 }
                 Console.WriteLine("Enter patron id to show books:");
                 var patronIdtoShow = UtilsClass.EnterNotEmptyInt("");
                 var borrowed = from pat in patrons
-                               where pat.patId == patronIdtoShow
-                               select pat.borrowedBooks;
+                               where pat.Id == patronIdtoShow
+                               select pat.BorrowedBooks;
                 
                 foreach(var book in borrowed.First())
                 {
@@ -110,36 +110,40 @@ namespace PatronServices
                 Console.WriteLine("Search: ");
                 var searchValue = UtilsClass.EnterNotEmptyString("");
 
-                switch(patronSearchChoice)  
+                switch (patronSearchChoice)
                 {
                     case 1:
                         var searchName = from pat in patrons
-                                         where pat.name.Contains(searchValue)
-                                         select pat;
+                            where pat.Name.Contains(searchValue)
+                            select pat;
                         var count = 0;
-                        toReutrnId = searchName.First().patId;
-                        foreach(var name in searchName)
+                        toReutrnId = searchName.First().Id;
+                        foreach (var name in searchName)
                         {
-                            Console.WriteLine("{0}, {1}, {2}", name.name, name.phoneNumber, name.email);
+                            Console.WriteLine("{0}, {1}, {2}", name.Name, name.PhoneNumber, name.Email);
                             count++;
                         }
-                        if(count == 0)
+
+                        if (count == 0)
                         {
                             Console.WriteLine("No patrons found with the name: {0}", searchValue);
                         }
+
                         break;
-                    
+
                     case 2:
                         var searchEmail = from pat in patrons
-                                         where pat.email.Contains(searchValue)
-                                         select pat;
+                            where pat.Email.Contains(searchValue)
+                            select pat;
                         var countE = 0;
-                        toReutrnId = searchEmail.First().patId;
-                        foreach(var name in searchEmail)
+                        toReutrnId = searchEmail.First().Id;
+                        foreach (var name in searchEmail)
                         {
-                            Console.WriteLine("{0}, {1}, {2}", name.name, name.phoneNumber, name.email);
-                            countE++;
+                            Console.WriteLine("{0}, {1}, {2}", name.Name, name.PhoneNumber, name.Email);
                         }
+
+                        countE++;
+                        
                         if(countE == 0)
                         {
                             Console.WriteLine("No patrons found with the email: {0}", searchValue);
@@ -148,13 +152,13 @@ namespace PatronServices
 
                     case 3:
                         var searchPhone = from pat in patrons
-                                         where pat.phoneNumber.Contains(searchValue)
+                                         where pat.PhoneNumber.Contains(searchValue)
                                          select pat;
                         var countP = 0;
-                        toReutrnId = searchPhone.First().patId;
+                        toReutrnId = searchPhone.First().Id;
                         foreach(var name in searchPhone)
                         {
-                            Console.WriteLine("{0}, {1}, {2}", name.name, name.phoneNumber, name.email);
+                            Console.WriteLine("{0}, {1}, {2}", name.Name, name.PhoneNumber, name.Email);
                             countP++;
                         }
                         if(countP == 0)

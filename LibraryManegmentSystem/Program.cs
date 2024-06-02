@@ -14,12 +14,6 @@ class MainClass
 {
     static void Main(string[] args)
     {
-        var serviceProvider = new ServiceCollection()
-            .AddSingleton<IBookService, BookService.BookServe>()
-            .BuildServiceProvider();
-
-        // Resolve the IBookService
-        var bookService = serviceProvider.GetService<IBookService>();
         
         var books = new List<Book>();
         var patrons = new List<Patron>();

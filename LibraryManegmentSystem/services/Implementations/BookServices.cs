@@ -5,12 +5,13 @@ using System.Diagnostics;
 using PatronClass;
 using Transactions;
 using LibraryManagementSystem.Repositories;
+    
 using utils;
 using LibraryManagementSystem.Interfaces;
 
 namespace BookService
 {
-    class BookServe :  IBookService
+    class BookServe : IBookServices
     {
         private readonly IBookRepository _bookRepository;
 

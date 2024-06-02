@@ -4,10 +4,10 @@ using BookClass;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
 using PatronServices;
-
+using LibraryManagementSystem.Interfaces;
 namespace PatronRepos
 {
-    class PatronCRUD
+    class PatronCRUD : IPatronRepository
     {
         public static void AddPatron(ref List<Patron>patrons, ref List<string>phoneNumbers, int patronId)
         {
@@ -18,7 +18,7 @@ namespace PatronRepos
                 var patronPhone = UtilsClass.EnterPatronPhoneNumber(phoneNumbers);
                 patronId++;
                 List<Book> borroweds = new List<Book>();
-                Patron newPatron = new Patron(patronId,patronName, patronPhone, patronEmail, borroweds);
+                Patron newPatron = new Patron();
                 patrons.Add(newPatron);
             }
             catch
@@ -32,7 +32,7 @@ namespace PatronRepos
                 Console.WriteLine("Patron Names:");
                 foreach(Patron patroni in patrons)
                 {
-                    Console.WriteLine(patroni.patId + ", " + patroni.name + ", " + patroni.email);
+                    Console.WriteLine(patroni.Id + ", " + patroni.Name + ", " + patroni.Email);
                 }
                 var patronIdtoEdit = UtilsClass.EnterNotEmptyInt("Enter patron id to edit:");
                 Console.WriteLine("1. Patron name");
@@ -46,9 +46,9 @@ namespace PatronRepos
                         var newName = UtilsClass.EnterNotEmptyString("Enter new patron name: \n");
                         foreach(Patron patroni in patrons)
                         {
-                            if(patronIdtoEdit == patroni.patId)
+                            if(patronIdtoEdit == patroni.Id)
                             {
-                                patroni.name = newName;
+                                patroni.Name = newName;
                             }
                         } 
                         break;
@@ -56,9 +56,9 @@ namespace PatronRepos
                         var newEmail = UtilsClass.EnterPatronEmail();
                         foreach(Patron patroni in patrons)
                         {
-                            if(patronIdtoEdit == patroni.patId)
+                            if(patronIdtoEdit == patroni.Id)
                             {
-                                patroni.email = newEmail;
+                                patroni.Email = newEmail;
                             }
                         } 
                         break;
@@ -66,9 +66,9 @@ namespace PatronRepos
                         var newPhone = UtilsClass.EnterPatronPhoneNumber(phoneNumbers);
                         foreach(Patron patroni in patrons)
                         {
-                            if(patronIdtoEdit == patroni.patId)
+                            if(patronIdtoEdit == patroni.Id)
                             {
-                                patroni.phoneNumber = newPhone;
+                                patroni.PhoneNumber = newPhone;
                             }
                         } 
                         break;
@@ -112,7 +112,7 @@ namespace PatronRepos
                         break;
                 }
                 var toDeletePatron = from patron in patrons
-                                     where patron.patId == deleteId
+                                     where patron.Id == deleteId
                                      select patron;
                 patrons.Remove(toDeletePatron.First());
             }
@@ -128,12 +128,12 @@ namespace PatronRepos
                 Console.WriteLine("Patron Names:");
                 foreach(Patron patroni in patrons)
                 {
-                    Console.WriteLine(patroni.patId + ", " + patroni.name + ", " + patroni.email);
+                    Console.WriteLine(patroni.Id + ", " + patroni.Name + ", " + patroni.Email);
                 }
                 patronId = UtilsClass.EnterNotEmptyInt("Enter patron id to edit:");
                 var found = from patron in patrons 
-                            where patron.patId == patronId
-                            select patron.patId;
+                            where patron.Id == patronId
+                            select patron.Id;
                 if(!found.Contains(patronId))
                 {
                     Console.WriteLine("Please enter one of the following choices only.");

@@ -1,4 +1,5 @@
 using BookClass;
+
 namespace LibraryManagementSystem.Interfaces
 {
     public interface IBookRepository
