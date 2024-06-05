@@ -1,20 +1,33 @@
 using BookClass;
 using PatronClass;
 using BookService;
-
+using LibraryManagementSystem.Interfaces;
 
 
 namespace Transactions
 {
-    class TransactionsServices
+    class TransactionsServices : ITransactionsServices
     {
-        public static void CheckOutBook(ref List<Book> books,ref List<Patron> patrons)
+        private readonly IBookRepository _bookRepository;
+        private readonly IPatronRepository _patronRepository;
+        private readonly IPatronServices _patronServices;
+        private readonly IBookServices _bookServices;
+
+        public TransactionsServices(IBookRepository bookRepository, IPatronRepository patronRepository,
+            IPatronServices patronServices, IBookServices bookServices)
+        {
+            _bookRepository = bookRepository;
+            _patronRepository = patronRepository;
+            _patronServices = patronServices;
+            _bookServices = bookServices;
+        }
+        public void CheckOutBook(ref List<Book> books,ref List<Patron> patrons)
         {   
             try
             {
                 BookServe book1 = new BookServe();
                 Console.WriteLine("All Books");
-                book1.ShowAvaliableBooks(books);
+                _bookServices.ShowAvaliableBooks(ref books);
                 Console.WriteLine("Choose one method:");
                 Console.WriteLine("1. Checkout book by id");
                 Console.WriteLine("2. Search for a book:");
@@ -26,8 +39,8 @@ namespace Transactions
                     case 1: 
                         Console.WriteLine("--------------------------------");
                         foreach(Book Booki in books){
-                            if(Booki.avaliable == true){
-                                Console.WriteLine(Booki.id + ", " + Booki.title + ", " + Booki.author);
+                            if(Booki.Avaliable == true){
+                                Console.WriteLine(Booki.Id + ", " + Booki.Title + ", " + Booki.Author);
                             }
                         }
                         Console.WriteLine("Enter book id to checkout");
@@ -35,7 +48,7 @@ namespace Transactions
                         break;
                     
                     case 2:
-                        idToCheckOut = book1.SearchForABook(books);
+                        idToCheckOut = _bookServices.SearchForABook(ref books);
                         break;
                     default:
                         Console.WriteLine("Please enter one of the following choices only.");
@@ -51,7 +64,7 @@ namespace Transactions
 
 
                 var ebook = from booki in books
-                            where booki.id == idToCheckOut
+                            where booki.Id == idToCheckOut
                             select booki;
                 
                 var patroned = from patroni in patrons
@@ -60,16 +73,15 @@ namespace Transactions
 
                 Book toAdd = ebook.First();
                 patroned.First().BorrowedBooks.Add(toAdd);
-                Console.WriteLine(patroned.First().BorrowedBooks.First().title);
+                Console.WriteLine(patroned.First().BorrowedBooks.First().Title);
 
-                ebook.First().avaliable = false;
-                ebook.First().borrowDate = DateTime.Now;
-                ebook.First().toBeRetaurnedDate = DateTime.Now.AddDays(14);
-                ebook.First().borrowById = patronIdToCheckOut;
+                ebook.First().Avaliable = false;
+                ebook.First().BorrowDate = DateTime.Now;
+                ebook.First().ToBeRetaurnedDate = DateTime.Now.AddDays(14);
+                ebook.First().BorrowById = patronIdToCheckOut;
             }
             catch
             {
-
             }
         }
     }

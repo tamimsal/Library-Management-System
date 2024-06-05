@@ -7,147 +7,97 @@ namespace LibraryManagementSystem.Repositories
 {
     class BookCRUD : IBookRepository
     {
-        private List<Book> _books = [];
 
-        public void AddBook(Book book)
+        public void EditBookById(ref List<Book> books)
         {
-            // return guid id
-            _books.Add(book);
-        }
-
-        public Book GetBook(int id)
-        {
-            return _books.FirstOrDefault(x => x.id == id);
-        }
-    public void AddBook(List<Book> books, ref int ids)
-    {
-        try
-        {
-            string bookTitle = UtilsClass.EnterNotEmptyString("Enter book title: \n");
-            string bookAuthor = UtilsClass.EnterNotEmptyString("Enter book author: \n");
-            string publihedDate = UtilsClass.EnterNotEmptyString("Enter book published date in dd/mm/yyyy : \n");
-            string? bookGenre = UtilsClass.EnterNotEmptyString("Enter book genre: \n");
-            ids++;
-            DateTime borrowedDate = DateTime.Now, dateToBeRet = DateTime.Now;
-            int PatId = 0;
-            Book newBook = new Book();
-            books.Add(newBook);
-            // primary constructor vs normal
-        }
-        catch
-        {
-            Console.WriteLine("Error, be careful");
-        }
-    }
-
-    public void EditBookById(List<Book> books)
-    {
-        try
-        {
-            Console.WriteLine("--------------------------------");
-            foreach (Book Booki in books)
+            try
             {
-                if (Booki.avaliable == true)
+                Console.WriteLine("--------------------------------");
+                foreach (Book Booki in books)
                 {
-                    Console.WriteLine(Booki.id + ", " + Booki.title + ", " + Booki.author);
+                    if (Booki.Avaliable == true)
+                    {
+                        Console.WriteLine(Booki.Id + ", " + Booki.Title + ", " + Booki.Author);
+                    }
+                }
+
+                var bookId = UtilsClass.EnterNotEmptyInt("Enter book id to edit");
+                Console.WriteLine("1. Book title");
+                Console.WriteLine("2. Book author");
+                Console.WriteLine("3. Published Date");
+                Console.WriteLine("4. Book genre");
+                Console.WriteLine("5. Book avaliability");
+                Console.WriteLine("What do you want to edit:");
+                var editChoice = UtilsClass.EnterNotEmptyInt("");
+                var boo = from book in books
+                    where book.Id == bookId
+                    select book;
+                switch (editChoice)
+                {
+                    case 1:
+                        var newTitle = UtilsClass.EnterNotEmptyString("Enter new title:");
+                        boo.First().Title = newTitle;
+                        break;
+                    case 2:
+                        var newAuthor = UtilsClass.EnterNotEmptyString("Enter new author:");
+                        boo.First().Author = newAuthor;
+                        break;
+                    case 3:
+                        var newPd = UtilsClass.EnterNotEmptyString("Enter new Published date vy dd/mm/yyyy:");
+                        boo.First().PublihedDate = newPd;
+                        break;
+                    case 4:
+                        var newGenre = UtilsClass.EnterNotEmptyString("Enter new genre:");
+                        boo.First().Genre = newGenre;
+                        break;
+                    case 5:
+                        Console.WriteLine("1. Available");
+                        Console.WriteLine("2. Not Avaliable");
+                        Console.WriteLine("Enter new avaliability:");
+                        var newAva = UtilsClass.EnterNotEmptyInt("");
+                        if (newAva == 1)
+                        {
+                            boo.First().Avaliable = true;
+                            Console.WriteLine("Status Channged Successufully");
+                        }
+                        else if (newAva == 0)
+                        {
+                            boo.First().Avaliable = false;
+                            Console.WriteLine("Status Channged Successufully");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Choose only 1 or 2 \n status not changed");
+                        }
+
+                        break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
+                        break;
                 }
             }
-
-            var bookId = UtilsClass.EnterNotEmptyInt("Enter book id to edit");
-
-            Console.WriteLine("1. Book title");
-            Console.WriteLine("2. Book author");
-            Console.WriteLine("3. Published Date");
-            Console.WriteLine("4. Book genre");
-            Console.WriteLine("5. Book avaliability");
-            Console.WriteLine("What do you want to edit:");
-            var editChoice = UtilsClass.EnterNotEmptyInt("");
-            var boo = from book in books
-                where book.id == bookId
-                select book;
-            switch (editChoice)
+            catch
             {
-                case 1:
-                    var newTitle = UtilsClass.EnterNotEmptyString("Enter new title:");
-                    boo.First().title = newTitle;
-                    break;
-                case 2:
-                    var newAuthor = UtilsClass.EnterNotEmptyString("Enter new author:");
-                    boo.First().author = newAuthor;
-                    break;
-                case 3:
-                    var newPd = UtilsClass.EnterNotEmptyString("Enter new Published date vy dd/mm/yyyy:");
-                    boo.First().publihedDate = newPd;
-                    break;
-                case 4:
-                    var newGenre = UtilsClass.EnterNotEmptyString("Enter new genre:");
-                    boo.First().genre = newGenre;
-                    break;
-                case 5:
-                    Console.WriteLine("1. Available");
-                    Console.WriteLine("2. Not Avaliable");
-                    Console.WriteLine("Enter new avaliability:");
-                    var newAva = UtilsClass.EnterNotEmptyInt("");
-                    if (newAva == 1)
-                    {
-                        boo.First().avaliable = true;
-                        Console.WriteLine("Status Channged Successufully");
-                    }
-                    else if (newAva == 0)
-                    {
-                        boo.First().avaliable = false;
-                        Console.WriteLine("Status Channged Successufully");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Choose only 1 or 2 \n status not changed");
-                    }
-
-                    break;
-                default:
-                    Console.WriteLine("Please enter one of the following choices only.");
-                    break;
             }
         }
-        catch
-        {
-        }
-    }
 
-    public void DeleteBook(List<Book> books)
-    {
-        try
+        public void DeleteBook(ref List<Book> books, int id)
         {
-            int searchChoice;
-            Console.WriteLine("Delete By: ");
-            Console.WriteLine("1. Book Id");
-            Console.WriteLine("2. Search for a book");
-            searchChoice = UtilsClass.EnterNotEmptyInt("");
-            int bookID = 0;
-            BookServe book1 = new BookServe();
-            switch (searchChoice)
-            {
-                case 1:
-                    bookID = book1.ChooseBookById(books);
-                    break;
-                case 2:
-                    bookID = book1.SearchForABook(books);
-                    break;
-                default:
-                    Console.WriteLine("Please enter one of the following choices only.");
-                    DeleteBook(books);
-                    break;
-            }
-
             var toDeleteBook = from bookq in books
-                where bookq.id == bookID
+                where bookq.Id == id
                 select bookq;
             books.Remove(toDeleteBook.First());
-            Console.WriteLine("Book deleted Successfully");
         }
-        catch
+
+        public void AddBook(Book book, ref List<Book> books)
         {
+            // return guid id
+            books.Add(book);
         }
-    }
+
+        public Book GetBook(int id, List<Book> books)
+        {
+            return books.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

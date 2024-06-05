@@ -22,57 +22,10 @@ namespace BookService
 
         public BookServe()
         {
-
         }
 
-        public void EnterBookChoice(List<Book> books,ref bool bookDo,ref int ids)
-        {
-            try
-            {
-                Console.WriteLine("--------------------------------");
-                Console.WriteLine("Enter your choice:");
-                Console.WriteLine("1. Add Books");
-                Console.WriteLine("2. Show avaliable books");
-                Console.WriteLine("3. Edit books info.");
-                Console.WriteLine("4. Delete book");
-                Console.WriteLine("5. Search for a book");
-                Console.WriteLine("6. Back");
-                int choice = UtilsClass.EnterNotEmptyInt("");
-                switch(choice){
-                    case 1:
-                        Book newBook = new() { };
-                        _bookRepository.AddBook(newBook);
-                        
-                        _bookRepository.AddBook(books,ref ids);
-                        break;
-                    
-                    case 2:
-                        ShowAvaliableBooks(books);
-                        break;
 
-                    case 3:
-                        _bookRepository.EditBookById(books);
-                        break;
-                    
-                    case 4:
-                        _bookRepository.DeleteBook(books);
-                        break;
-                    case 5:
-                        SearchForABook(books);
-                        break;
-                    case 6:
-                        bookDo = false;
-                        break;
-                    default:
-                        Console.WriteLine("Please enter one of the following choices only.");
-                        break;
-                        
-                }
-            }
-            catch{
-            }
-        }
-        public void ShowAvaliableBooks(List<Book> books)
+        public void ShowAvaliableBooks(ref List<Book> books)
         {
             try{
                 if(books.Count == 0)
@@ -81,23 +34,51 @@ namespace BookService
                     return;
                 }
                 var avaliableBooks = from booki in books 
-                                     where booki.avaliable == true
-                                     select booki;
+                    where booki.Avaliable == true
+                    select booki;
                 foreach (var booki in avaliableBooks)
                 {
-                    Console.WriteLine(booki.title);
+                    Console.WriteLine(booki.Title);
                 }
             }
             catch
             {
             }
         }
-        public int SearchForABook(List<Book> books)
+        public int ChooseBookById(ref List<Book> books)
+        {
+            int bookId = 0;
+            try{
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine("All Books");
+                foreach(Book Booki in books)
+                {
+                    if(Booki.Avaliable == true)
+                    {
+                        Console.WriteLine(Booki.Id + ", " + Booki.Title + ", " + Booki.Author);
+                    }
+                }
+                Console.WriteLine("Enter book id");
+                bookId = UtilsClass.EnterNotEmptyInt("");
+                var foundBook = from book in books
+                    where book.Id == bookId
+                    select book;
+                if(foundBook.First().Id == bookId)
+                {
+                    Console.WriteLine("No books selected");
+                }
+            }
+            catch
+            {
+            }
+            return bookId;
+        }
+        public int SearchForABook(ref List<Book> books)
         {
             var idOfSearchedBook = 0;
             try
             {
-                ShowAvaliableBooks(books);   
+                ShowAvaliableBooks(ref books);   
                 Console.WriteLine("Search By:");
                 Console.WriteLine("1. Book title");
                 Console.WriteLine("2. Book author");
@@ -110,46 +91,46 @@ namespace BookService
                 {
                     case 1:
                         var foundBooks = from book in books
-                                         where book.title.Contains(searchWord)
+                                         where book.Title.Contains(searchWord)
                                          select book;
                         
                         if(idOfSearchedBook == 0)
                         {
-                            idOfSearchedBook = foundBooks.First().id;
+                            idOfSearchedBook = (int)foundBooks.First().Id;
                         }
                         foreach(var book in foundBooks)
                         {
-                            Console.WriteLine(book.title + ", " + book.author + ", " + book.genre);
+                            Console.WriteLine(book.Title + ", " + book.Author + ", " + book.Genre);
                             count++;
                         }
                         break;
                     case 2:
                         var foundBooksA = from book in books
-                                         where book.author.Contains(searchWord)
+                                         where book.Author.Contains(searchWord)
                                          select book;
                         
                         if(idOfSearchedBook == 0)
                         {
-                            idOfSearchedBook = foundBooksA.First().id;
+                            idOfSearchedBook = (int)foundBooksA.First().Id;
                         }
                         foreach(var book in foundBooksA)
                         {
-                            Console.WriteLine(book.title + ", " + book.author + ", " + book.genre);
+                            Console.WriteLine(book.Title + ", " + book.Author + ", " + book.Genre);
                             count++;
                         }                        
                         break;
                     case 3:
                         var foundBooksG = from book in books
-                                         where book.title.Contains(searchWord)
+                                         where book.Title.Contains(searchWord)
                                          select book;
                         
                         if(idOfSearchedBook == 0)
                         {
-                            idOfSearchedBook = foundBooksG.First().id;
+                            idOfSearchedBook = (int)foundBooksG.First().Id;
                         }
                         foreach(var book in foundBooksG)
                         {
-                            Console.WriteLine(book.title + ", " + book.author + ", " + book.genre);
+                            Console.WriteLine(book.Title + ", " + book.Author + ", " + book.Genre);
                             count++;
                         }
                         break;
@@ -168,34 +149,7 @@ namespace BookService
             }
             return idOfSearchedBook;
         }
-
-        public int ChooseBookById(List<Book> books)
-        {
-            int bookId = 0;
-            try{
-                Console.WriteLine("--------------------------------");
-                Console.WriteLine("All Books");
-                foreach(Book Booki in books)
-                {
-                    if(Booki.avaliable == true)
-                    {
-                        Console.WriteLine(Booki.id + ", " + Booki.title + ", " + Booki.author);
-                    }
-                }
-                Console.WriteLine("Enter book id");
-                bookId = UtilsClass.EnterNotEmptyInt("");
-                var foundBook = from book in books
-                                where book.id == bookId
-                                select book;
-                if(foundBook.First().id == bookId)
-                {
-                    Console.WriteLine("No books selected");
-                }
-            }
-            catch
-            {
-            }
-            return bookId;
-        }
+        
+        
     }
 }

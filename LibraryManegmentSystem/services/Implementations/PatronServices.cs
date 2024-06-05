@@ -5,57 +5,9 @@ using PatronRepos;
 using LibraryManagementSystem.Interfaces;
 namespace PatronServices
 {
-    class PatronServe : IPatronServices
+    class PatronService : IPatronServices
     {
-        public static void EnterPatronChoice(ref List<Patron>patrons, ref List<string>phoneNumbers, ref bool patronChoiceDo, int patronId, List<Book>books)
-        {
-            try
-            {
-                Console.WriteLine("--------------------------------");
-                Console.WriteLine("Enter your choice:");
-                Console.WriteLine("1. Add Patron");
-                Console.WriteLine("2. Show all patrons");
-                Console.WriteLine("3. Edit Patron info.");
-                Console.WriteLine("4. Show books borrowed by patron");
-                Console.WriteLine("5. Search a patron");
-                Console.WriteLine("6. Delete patron");
-                Console.WriteLine("7. Back");
-                int patronChoice = UtilsClass.EnterNotEmptyInt("");
-                switch(patronChoice)
-                {
-                    case 1:
-                        PatronCRUD.AddPatron(ref patrons, ref phoneNumbers, patronId);
-                        break;
-                    case 2:
-                        ShowAllPatrons(ref patrons);
-                        break;
-
-                    case 3:
-                        PatronCRUD.EditPatronInfoById(ref patrons, ref phoneNumbers);
-                        break;
-                    case 4:
-                        ShowPatronBooks(ref patrons, ref books);
-                        break;
-                    case 5:
-                        SeatchForAPatron(patrons);
-                        break;
-                    case 6:
-                        PatronCRUD.DeletePatron(patrons);
-                        break;
-                    case 7:
-                        patronChoiceDo = false;
-                        break;
-                    default:
-                        Console.WriteLine("Please enter one of the following choices only.");
-                        break;
-                }
-            }
-            catch
-            {
-
-            }
-        }
-        public static void ShowAllPatrons( ref List<Patron> patrons)
+        public void ShowAllPatrons(ref List<Patron> patrons)
         {
             try
             {
@@ -74,7 +26,8 @@ namespace PatronServices
             {
             }
         }
-        public static void ShowPatronBooks(ref List<Patron>patrons, ref List<Book>books){
+
+        public void ShowPatronBooks(ref List<Patron>patrons, ref List<Book>books){
             try{
                 Console.WriteLine("Patron Names:");
                 foreach(Patron patroni in patrons)
@@ -84,19 +37,20 @@ namespace PatronServices
                 Console.WriteLine("Enter patron id to show books:");
                 var patronIdtoShow = UtilsClass.EnterNotEmptyInt("");
                 var borrowed = from pat in patrons
-                               where pat.Id == patronIdtoShow
-                               select pat.BorrowedBooks;
+                    where pat.Id == patronIdtoShow
+                    select pat.BorrowedBooks;
                 
                 foreach(var book in borrowed.First())
                 {
-                    Console.WriteLine(book.title);
+                    Console.WriteLine(book.Title);
                 }
             }
             catch
             {
             }
         }
-        public static int SeatchForAPatron(List<Patron> patrons)
+
+        public int SearchForAPatron(ref List<Patron> patrons)
         {
             int toReutrnId = 0;
             try
@@ -175,6 +129,34 @@ namespace PatronServices
             {
             }
             return toReutrnId;
+        }
+    
+        public int ChoosePatronById(List<Patron> patrons)
+        {
+            int patronId = 0;
+            try
+            {
+                Console.WriteLine("Patron Names:");
+                foreach (Patron patroni in patrons)
+                {
+                    Console.WriteLine(patroni.Id + ", " + patroni.Name + ", " + patroni.Email);
+                }
+
+                patronId = UtilsClass.EnterNotEmptyInt("Enter patron id to edit:");
+                var found = from patron in patrons
+                    where patron.Id == patronId
+                    select patron.Id;
+                if (!found.Contains(patronId))
+                {
+                    Console.WriteLine("Please enter one of the following choices only.");
+                    patronId = ChoosePatronById(patrons);
+                }
+            }
+            catch
+            {
+            }
+
+            return patronId;
         }
     }
 
