@@ -32,10 +32,7 @@ namespace LibraryManegmentSystem
         int ids = 0;
         bool patronDo = true;
         bool libDo = true;
-
         bool patronChoiceDo = true;
-
-
         public void MainScreen()
         {
             try

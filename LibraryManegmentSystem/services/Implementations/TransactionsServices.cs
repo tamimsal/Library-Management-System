@@ -23,7 +23,6 @@ namespace LibraryManegmentSystem.services.Implementations
         {   
             try
             {
-                BookServices book1 = new BookServices();
                 Console.WriteLine("All Books");
                 _bookServices.ShowAvaliableBooks(ref books);
                 Console.WriteLine("Choose one method:");
@@ -59,27 +58,44 @@ namespace LibraryManegmentSystem.services.Implementations
                 }
                 Console.WriteLine("Enter patron id to checkout:");
                 patronIdToCheckOut = Convert.ToInt32(Console.ReadLine());
-
-
-                var ebook = from booki in books
-                            where booki.Id == idToCheckOut
-                            select booki;
                 
-                var patroned = from patroni in patrons
-                               where patroni.Id == patronIdToCheckOut
-                               select patroni;
+                Book bookToCheckOut = books.FirstOrDefault(book => book.Id == idToCheckOut);
+                Patron patronToCheckOut = patrons.FirstOrDefault(patron => patron.Id == patronIdToCheckOut);
 
-                Book toAdd = ebook.First();
-                patroned.First().BorrowedBooks.Add(toAdd);
-                Console.WriteLine(patroned.First().BorrowedBooks.First().Title);
+                if (bookToCheckOut == null)
+                {
+                    Console.WriteLine("Book not found.");
+                    return;
+                }
+                if (patronToCheckOut == null)
+                {
+                    Console.WriteLine("Patron not found.");
+                    return;
+                }
 
-                ebook.First().Avaliable = false;
-                ebook.First().BorrowDate = DateTime.Now;
-                ebook.First().ToBeRetaurnedDate = DateTime.Now.AddDays(14);
-                ebook.First().BorrowById = patronIdToCheckOut;
+                if ((bool)bookToCheckOut.Avaliable)
+                {
+                    if (patronToCheckOut.BorrowedBooks == null)
+                    {
+                        patronToCheckOut.BorrowedBooks = new List<Book>();
+                    }
+                    bookToCheckOut.Avaliable = false;
+                    bookToCheckOut.BorrowDate = DateTime.Now;
+                    bookToCheckOut.ToBeRetaurnedDate = DateTime.Now.AddDays(14);
+                    bookToCheckOut.BorrowById = patronIdToCheckOut;
+
+                    patronToCheckOut.BorrowedBooks.Add(bookToCheckOut);
+
+                    Console.WriteLine($"Book '{bookToCheckOut.Title}' checked out by {patronToCheckOut.Name}.");
+                }
+                else
+                {
+                    Console.WriteLine("Book is not available.");
+                }
             }
-            catch
+            catch(Exception ex)
             {
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
     }
