@@ -1,5 +1,6 @@
-using PatronClass;
-namespace LibraryManagementSystem.Interfaces
+using LibraryManegmentSystem.models;
+
+namespace LibraryManegmentSystem.repositories.Interfaces
 {
     public interface IPatronRepository
     {

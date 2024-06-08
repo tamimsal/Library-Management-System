@@ -1,10 +1,8 @@
-using BookClass;
-using PatronClass;
-using BookService;
-using LibraryManagementSystem.Interfaces;
+using LibraryManegmentSystem.models;
+using LibraryManegmentSystem.repositories.Interfaces;
+using LibraryManegmentSystem.services.Interfaces;
 
-
-namespace Transactions
+namespace LibraryManegmentSystem.services.Implementations
 {
     class TransactionsServices : ITransactionsServices
     {
@@ -25,7 +23,7 @@ namespace Transactions
         {   
             try
             {
-                BookServe book1 = new BookServe();
+                BookServices book1 = new BookServices();
                 Console.WriteLine("All Books");
                 _bookServices.ShowAvaliableBooks(ref books);
                 Console.WriteLine("Choose one method:");

@@ -1,7 +1,6 @@
-using PatronClass;
-using BookClass;
+using LibraryManegmentSystem.models;
 
-namespace LibraryManagementSystem.Interfaces
+namespace LibraryManegmentSystem.services.Interfaces
 {
     public interface IPatronServices
     {

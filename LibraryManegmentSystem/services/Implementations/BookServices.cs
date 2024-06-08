@@ -1,26 +1,20 @@
-using BookClass;
-using MainProgram;
-using System.Security.Cryptography.X509Certificates;
-using System.Diagnostics;
-using PatronClass;
-using Transactions;
-using LibraryManagementSystem.Repositories;
-    
-using utils;
-using LibraryManagementSystem.Interfaces;
+using LibraryManegmentSystem.models;
+using LibraryManegmentSystem.repositories.Interfaces;
+using LibraryManegmentSystem.services.Interfaces;
+using LibraryManegmentSystem.Utilties;
 
-namespace BookService
+namespace LibraryManegmentSystem.services.Implementations
 {
-    class BookServe : IBookServices
+    class BookServices : IBookServices
     {
         private readonly IBookRepository _bookRepository;
 
-        public BookServe(IBookRepository bookRepository)
+        public BookServices(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
         }
 
-        public BookServe()
+        public BookServices()
         {
         }
 

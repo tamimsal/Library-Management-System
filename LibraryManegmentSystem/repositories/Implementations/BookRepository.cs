@@ -1,11 +1,10 @@
-using utils;
-using BookClass;
-using BookService;
-using LibraryManagementSystem.Interfaces;
+using LibraryManegmentSystem.models;
+using LibraryManegmentSystem.repositories.Interfaces;
+using LibraryManegmentSystem.Utilties;
 
-namespace LibraryManagementSystem.Repositories
+namespace LibraryManegmentSystem.repositories.Implementations
 {
-    class BookCRUD : IBookRepository
+    public class BookRepository : IBookRepository
     {
 
         public void EditBookById(ref List<Book> books)
@@ -93,6 +92,7 @@ namespace LibraryManagementSystem.Repositories
         {
             // return guid id
             books.Add(book);
+            Console.WriteLine(books.First().Title);
         }
 
         public Book GetBook(int id, List<Book> books)

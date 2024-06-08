@@ -1,9 +1,9 @@
-using BookClass;
-using PatronClass;
-using utils;
-using LibraryManagementSystem.Interfaces;
+using LibraryManegmentSystem.models;
+using LibraryManegmentSystem.repositories.Interfaces;
+using LibraryManegmentSystem.services.Interfaces;
+using LibraryManegmentSystem.Utilties;
 
-namespace TaskManegerF
+namespace LibraryManegmentSystem
 {
     public class TaskManegerFun
     {
@@ -23,7 +23,7 @@ namespace TaskManegerF
             _TransactionsServices = transactionsServices;
         }
 
-        List<Book> books = new List<Book>();
+        List<Book> books = new ();
         List<Patron> patrons = new List<Patron>();
         List<string> phoneNumbers = new List<string>();
         int patronId = 0;
@@ -35,9 +35,7 @@ namespace TaskManegerF
 
         bool patronChoiceDo = true;
 
-        public TaskManegerFun()
-        {
-        }
+
         public void MainScreen()
         {
             try
@@ -47,7 +45,6 @@ namespace TaskManegerF
                 Console.WriteLine("Sign in as:");
                 Console.WriteLine("1. Patron");
                 Console.WriteLine("2. Librarian");
-                Console.WriteLine("3. Exit");
                 var signInChoice = 0;
                 signInChoice = Convert.ToInt32(Console.ReadLine());
                 switch (signInChoice)
@@ -71,11 +68,7 @@ namespace TaskManegerF
                             LibrarianScreen();
                         }
                         break;
-
-                    case 3:
-                        doComplete = false;
-                        break;
-
+                    
                     default:
                         Console.WriteLine("Please enter one of the following choices only.");
                         break;
@@ -227,6 +220,8 @@ namespace TaskManegerF
                     Id = ids
                 };
                 _bookRepository.AddBook(newBook, ref books);
+                //books.Add(newBook);
+                Console.WriteLine(books.First().Author);
             }
             catch
             {

@@ -1,4 +1,4 @@
-namespace BookClass
+namespace LibraryManegmentSystem.models
 {
     public class Book
     {

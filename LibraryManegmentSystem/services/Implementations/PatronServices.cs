@@ -1,11 +1,10 @@
-using PatronClass;
-using BookClass;
-using utils;
-using PatronRepos;
-using LibraryManagementSystem.Interfaces;
-namespace PatronServices
+using LibraryManegmentSystem.models;
+using LibraryManegmentSystem.services.Interfaces;
+using LibraryManegmentSystem.Utilties;
+
+namespace LibraryManegmentSystem.services.Implementations
 {
-    class PatronService : IPatronServices
+    class PatronServices : IPatronServices
     {
         public void ShowAllPatrons(ref List<Patron> patrons)
         {

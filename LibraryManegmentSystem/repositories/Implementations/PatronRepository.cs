@@ -1,13 +1,10 @@
-using PatronClass;
-using utils;
-using BookClass;
-using System.Security.Cryptography.X509Certificates;
-using System.Net;
-using PatronServices;
-using LibraryManagementSystem.Interfaces;
-namespace PatronRepos
+using LibraryManegmentSystem.models;
+using LibraryManegmentSystem.repositories.Interfaces;
+using LibraryManegmentSystem.Utilties;
+
+namespace LibraryManegmentSystem.repositories.Implementations
 {
-    class PatronCRUD : IPatronRepository
+    public class PatronRepository : IPatronRepository
     {
         public void DeletePatron(ref List<Patron> patrons, int id)
         {

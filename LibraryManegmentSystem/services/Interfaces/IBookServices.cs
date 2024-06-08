@@ -1,5 +1,6 @@
-using BookClass;
-namespace LibraryManagementSystem.Interfaces
+using LibraryManegmentSystem.models;
+
+namespace LibraryManegmentSystem.services.Interfaces
 {
     public interface IBookServices
     {

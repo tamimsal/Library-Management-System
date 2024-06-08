@@ -1,6 +1,7 @@
 using System.Net.Mail;
 using System.Text.RegularExpressions;
-namespace utils
+
+namespace LibraryManegmentSystem.Utilties
 {   
     class UtilsClass
     {

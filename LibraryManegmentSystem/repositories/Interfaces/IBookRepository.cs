@@ -1,6 +1,6 @@
-using BookClass;
+using LibraryManegmentSystem.models;
 
-namespace LibraryManagementSystem.Interfaces
+namespace LibraryManegmentSystem.repositories.Interfaces
 {
     public interface IBookRepository
     {

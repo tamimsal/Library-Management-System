@@ -1,6 +1,4 @@
-using BookClass;
-
-namespace PatronClass
+namespace LibraryManegmentSystem.models
 {
     public class Patron
     {
