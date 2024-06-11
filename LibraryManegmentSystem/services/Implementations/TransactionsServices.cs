@@ -37,7 +37,7 @@ namespace LibraryManegmentSystem.services.Implementations
                         Console.WriteLine("--------------------------------");
                         foreach(Book Booki in books){
                             if(Booki.Avaliable == true){
-                                Console.WriteLine(Booki.Id + ", " + Booki.Title + ", " + Booki.Author);
+                                Console.WriteLine(Booki.Number + ", " + Booki.Title + ", " + Booki.Author);
                             }
                         }
                         Console.WriteLine("Enter book id to checkout");
@@ -59,7 +59,7 @@ namespace LibraryManegmentSystem.services.Implementations
                 Console.WriteLine("Enter patron id to checkout:");
                 patronIdToCheckOut = Convert.ToInt32(Console.ReadLine());
                 
-                Book bookToCheckOut = books.FirstOrDefault(book => book.Id == idToCheckOut);
+                Book bookToCheckOut = books.FirstOrDefault(book => book.Number == idToCheckOut);
                 Patron patronToCheckOut = patrons.FirstOrDefault(patron => patron.Id == patronIdToCheckOut);
 
                 if (bookToCheckOut == null)

@@ -4,10 +4,10 @@ namespace LibraryManegmentSystem.repositories.Interfaces
 {
     public interface IBookRepository
     {
-        void EditBookById(ref List<Book> books, int editChoice, int bookIdToEdit, string newVal);
-        void DeleteBook(ref List<Book> books, int id);
+        void EditBookById(ref List<Book> books, int editChoice, int bookNumberToEdit, string newVal);
+        void DeleteBook(ref List<Book> books, int number);
         void AddBook(Book newBook, ref List<Book> books);
-        Book GetBook(int id, List<Book> books);
+        Book GetBook(int number, List<Book> books);
 
     }
 }

@@ -2,7 +2,8 @@ namespace LibraryManegmentSystem.models
 {
     public class Book
     {
-        public int? Id {get; set;}
+        public Guid Id { set; get; }
+        public int? Number {get; set;}
         public string? Title {set;get;}
         public string? Author {get; set;}
         public string? PublihedDate {set; get;}

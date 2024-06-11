@@ -46,15 +46,15 @@ namespace LibraryManegmentSystem.services.Implementations
                 {
                     if(Booki.Avaliable == true)
                     {
-                        Console.WriteLine(Booki.Id + ", " + Booki.Title + ", " + Booki.Author);
+                        Console.WriteLine(Booki.Number + ", " + Booki.Title + ", " + Booki.Author);
                     }
                 }
                 Console.WriteLine("Enter book id");
                 bookId = UtilsClass.EnterNotEmptyInt("");
                 var foundBook = from book in books
-                    where book.Id == bookId
+                    where book.Number == bookId
                     select book;
-                if(foundBook.First().Id == bookId)
+                if(foundBook.First().Number == bookId)
                 {
                     Console.WriteLine("No books selected");
                 }
@@ -86,7 +86,7 @@ namespace LibraryManegmentSystem.services.Implementations
                                          select book;
                         if(idOfSearchedBook == 0)
                         {
-                            idOfSearchedBook = (int)foundBooks.First().Id;
+                            idOfSearchedBook = (int)foundBooks.First().Number;
                         }
                         foreach(var book in foundBooks)
                         {
@@ -101,7 +101,7 @@ namespace LibraryManegmentSystem.services.Implementations
                         
                         if(idOfSearchedBook == 0)
                         {
-                            idOfSearchedBook = (int)foundBooksA.First().Id;
+                            idOfSearchedBook = (int)foundBooksA.First().Number;
                         }
                         foreach(var book in foundBooksA)
                         {
@@ -116,7 +116,7 @@ namespace LibraryManegmentSystem.services.Implementations
                         
                         if(idOfSearchedBook == 0)
                         {
-                            idOfSearchedBook = (int)foundBooksG.First().Id;
+                            idOfSearchedBook = (int)foundBooksG.First().Number;
                         }
                         foreach(var book in foundBooksG)
                         {

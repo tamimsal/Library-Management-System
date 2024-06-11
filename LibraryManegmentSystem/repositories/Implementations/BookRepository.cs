@@ -7,12 +7,12 @@ namespace LibraryManegmentSystem.repositories.Implementations
     public class BookRepository : IBookRepository
     {
 
-        public void EditBookById(ref List<Book> books, int editChoice, int bookIdToEdit, string newVal)
+        public void EditBookById(ref List<Book> books, int editChoice, int bookNumberToEdit, string newVal)
         {
             try
             {
                 var boo = from book in books
-                    where book.Id == bookIdToEdit
+                    where book.Number == bookNumberToEdit
                     select book;
                 switch (editChoice)
                 {
@@ -45,10 +45,10 @@ namespace LibraryManegmentSystem.repositories.Implementations
             }
         }
 
-        public void DeleteBook(ref List<Book> books, int id)
+        public void DeleteBook(ref List<Book> books, int number)
         {
             var toDeleteBook = from bookq in books
-                where bookq.Id == id
+                where bookq.Number == number
                 select bookq;
             books.Remove(toDeleteBook.First());
         }
@@ -59,9 +59,9 @@ namespace LibraryManegmentSystem.repositories.Implementations
             books.Add(book);
         }
 
-        public Book GetBook(int id, List<Book> books)
+        public Book GetBook(int number, List<Book> books)
         {
-            return books.FirstOrDefault(x => x.Id == id);
+            return books.FirstOrDefault(x => x.Number == number);
         }
     }
 }

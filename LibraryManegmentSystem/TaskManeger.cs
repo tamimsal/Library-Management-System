@@ -208,11 +208,12 @@ namespace LibraryManegmentSystem
                 string? bookGenre = UtilsClass.EnterNotEmptyString("Enter book genre: \n");
                 ids++;
                 DateTime borrowedDate = DateTime.Now, dateToBeRet = DateTime.Now;
+                Guid bookGuid = new Guid();
                 Book newBook = new Book()
                 {
                     Title = bookTitle, Author = bookAuthor, PublihedDate = publihedDate, Genre = bookGenre,
                     BorrowDate = borrowedDate, ToBeRetaurnedDate = dateToBeRet, Avaliable = true, BorrowById = 0,
-                    Id = ids
+                    Number = ids, Id = bookGuid
                 };
                 _bookRepository.AddBook(newBook, ref books);
                 //books.Add(newBook);
@@ -347,7 +348,7 @@ namespace LibraryManegmentSystem
                 {
                     if (Booki.Avaliable == true)
                     {
-                        Console.WriteLine(Booki.Id + ", " + Booki.Title + ", " + Booki.Author);
+                        Console.WriteLine(Booki.Number + ", " + Booki.Title + ", " + Booki.Author);
                     }
                 }
                 var bookId = UtilsClass.EnterNotEmptyInt("Enter book id to edit");
@@ -359,7 +360,7 @@ namespace LibraryManegmentSystem
                 Console.WriteLine("What do you want to edit:");
                 var editChoice = UtilsClass.EnterNotEmptyInt("");
                 var boo = from book in books
-                    where book.Id == bookId
+                    where book.Number == bookId
                     select book;
                 switch (editChoice)
                 {
