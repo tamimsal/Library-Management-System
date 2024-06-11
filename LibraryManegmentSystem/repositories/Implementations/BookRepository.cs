@@ -7,70 +7,36 @@ namespace LibraryManegmentSystem.repositories.Implementations
     public class BookRepository : IBookRepository
     {
 
-        public void EditBookById(ref List<Book> books)
+        public void EditBookById(ref List<Book> books, int editChoice, int bookIdToEdit, string newVal)
         {
             try
             {
-                Console.WriteLine("--------------------------------");
-                foreach (Book Booki in books)
-                {
-                    if (Booki.Avaliable == true)
-                    {
-                        Console.WriteLine(Booki.Id + ", " + Booki.Title + ", " + Booki.Author);
-                    }
-                }
-                var bookId = UtilsClass.EnterNotEmptyInt("Enter book id to edit");
-                Console.WriteLine("1. Book title");
-                Console.WriteLine("2. Book author");
-                Console.WriteLine("3. Published Date");
-                Console.WriteLine("4. Book genre");
-                Console.WriteLine("5. Book avaliability");
-                Console.WriteLine("What do you want to edit:");
-                var editChoice = UtilsClass.EnterNotEmptyInt("");
                 var boo = from book in books
-                    where book.Id == bookId
+                    where book.Id == bookIdToEdit
                     select book;
                 switch (editChoice)
                 {
                     case 1:
-                        var newTitle = UtilsClass.EnterNotEmptyString("Enter new title:");
-                        boo.First().Title = newTitle;
+                        boo.First().Title = newVal;
                         break;
                     case 2:
-                        var newAuthor = UtilsClass.EnterNotEmptyString("Enter new author:");
-                        boo.First().Author = newAuthor;
+                        boo.First().Author = newVal;
                         break;
                     case 3:
-                        var newPd = UtilsClass.EnterNotEmptyString("Enter new Published date vy dd/mm/yyyy:");
-                        boo.First().PublihedDate = newPd;
+                        boo.First().PublihedDate = newVal;
                         break;
                     case 4:
-                        var newGenre = UtilsClass.EnterNotEmptyString("Enter new genre:");
-                        boo.First().Genre = newGenre;
+                        boo.First().Genre = newVal;
                         break;
                     case 5:
-                        Console.WriteLine("1. Available");
-                        Console.WriteLine("2. Not Avaliable");
-                        Console.WriteLine("Enter new avaliability:");
-                        var newAva = UtilsClass.EnterNotEmptyInt("");
-                        if (newAva == 1)
+                        if (newVal == "1")
                         {
                             boo.First().Avaliable = true;
-                            Console.WriteLine("Status Channged Successufully");
-                        }
-                        else if (newAva == 0)
-                        {
-                            boo.First().Avaliable = false;
-                            Console.WriteLine("Status Channged Successufully");
                         }
                         else
                         {
-                            Console.WriteLine("Choose only 1 or 2 \n status not changed");
+                            boo.First().Avaliable = false;
                         }
-
-                        break;
-                    default:
-                        Console.WriteLine("Please enter one of the following choices only.");
                         break;
                 }
             }

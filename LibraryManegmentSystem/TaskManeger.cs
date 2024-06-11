@@ -178,7 +178,7 @@ namespace LibraryManegmentSystem
                         break;
 
                     case 3:
-                        _bookRepository.EditBookById(ref books);
+                        EditBookByIdScreen();
                         break;
 
                     case 4:
@@ -343,6 +343,81 @@ namespace LibraryManegmentSystem
             }
         }
 
+        void EditBookByIdScreen()
+        {
+            try
+            {
+                Console.WriteLine("--------------------------------");
+                foreach (Book Booki in books)
+                {
+                    if (Booki.Avaliable == true)
+                    {
+                        Console.WriteLine(Booki.Id + ", " + Booki.Title + ", " + Booki.Author);
+                    }
+                }
+                var bookId = UtilsClass.EnterNotEmptyInt("Enter book id to edit");
+                Console.WriteLine("1. Book title");
+                Console.WriteLine("2. Book author");
+                Console.WriteLine("3. Published Date");
+                Console.WriteLine("4. Book genre");
+                Console.WriteLine("5. Book avaliability");
+                Console.WriteLine("What do you want to edit:");
+                var editChoice = UtilsClass.EnterNotEmptyInt("");
+                var boo = from book in books
+                    where book.Id == bookId
+                    select book;
+                switch (editChoice)
+                {
+                    case 1:
+                        var newTitle = UtilsClass.EnterNotEmptyString("Enter new title:");
+                        _bookRepository.EditBookById(ref books, editChoice, bookId,newTitle);
+                        break;
+                    case 2:
+                        var newAuthor = UtilsClass.EnterNotEmptyString("Enter new author:");
+                        _bookRepository.EditBookById(ref books, editChoice, bookId, newAuthor);
+
+                        break;
+                    case 3:
+                        var newPd = UtilsClass.EnterNotEmptyString("Enter new Published date vy dd/mm/yyyy:");
+                        _bookRepository.EditBookById(ref books, editChoice, bookId, newPd);
+
+                        break;
+                    case 4:
+                        var newGenre = UtilsClass.EnterNotEmptyString("Enter new genre:");
+                        _bookRepository.EditBookById(ref books, editChoice, bookId, newGenre);
+
+                        break;
+                    case 5:
+                        Console.WriteLine("1. Available");
+                        Console.WriteLine("2. Not Avaliable");
+                        Console.WriteLine("Enter new avaliability:");
+                        var newAva = UtilsClass.EnterNotEmptyInt("");
+                        if (newAva == 1)
+                        {
+                            _bookRepository.EditBookById(ref books, editChoice, bookId, "1");
+                            Console.WriteLine("Status Channged Successufully");
+                        }
+                        else if (newAva == 2)
+                        {
+                            _bookRepository.EditBookById(ref books, editChoice, bookId,"0");
+                            Console.WriteLine("Status Channged Successufully");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Choose only 1 or 2 \n status not changed");
+                        }
+
+                        break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
         void AddPatronScreen(ref List<Patron> patrons, ref List<string> phoneNumbers, int patronId)
         {
             try
