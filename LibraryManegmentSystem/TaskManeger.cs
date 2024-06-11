@@ -283,7 +283,8 @@ namespace LibraryManegmentSystem
                         break;
 
                     case 3:
-                        _patronRepository.EditPatronInfoById(ref patrons, ref phoneNumbers);
+                        EditPatronInfoByIdScreen();
+                        //_patronRepository.EditPatronInfoById(ref patrons, ref phoneNumbers);
                         break;
                     case 4:
                         _patronServices.ShowPatronBooks(ref patrons, ref books);
@@ -305,6 +306,40 @@ namespace LibraryManegmentSystem
             catch
             {
 
+            }
+        }
+
+        void EditPatronInfoByIdScreen()
+        {
+            Console.WriteLine("Patron Names:");
+            foreach(Patron patroni in patrons)
+            {
+                Console.WriteLine(patroni.Id + ", " + patroni.Name + ", " + patroni.Email);
+            }
+            var patronIdtoEdit = UtilsClass.EnterNotEmptyInt("Enter patron id to edit:");
+            Console.WriteLine("1. Patron name");
+            Console.WriteLine("2. Patron email");
+            Console.WriteLine("3. Patron phone number");
+            Console.WriteLine("What do you want to edit:");
+            var editChoice = UtilsClass.EnterNotEmptyInt("");
+            switch(editChoice)
+            {
+                case 1:
+                    var newName = UtilsClass.EnterNotEmptyString("Enter new patron name: \n");
+                    _patronRepository.EditPatronInfoById(ref patrons, patronIdtoEdit, newName, editChoice);
+                    
+                    break;
+                case 2:
+                    var newEmail = UtilsClass.EnterPatronEmail();
+                    _patronRepository.EditPatronInfoById(ref patrons, patronIdtoEdit, newEmail, editChoice);
+                    break;
+                case 3:
+                    var newPhone = UtilsClass.EnterPatronPhoneNumber(phoneNumbers);
+                    _patronRepository.EditPatronInfoById(ref patrons, patronIdtoEdit, newPhone, editChoice);
+                    break;
+                default:
+                    Console.WriteLine("Please enter one of the following choices only.");
+                    break;
             }
         }
 

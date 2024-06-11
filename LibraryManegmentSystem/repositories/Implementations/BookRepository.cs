@@ -19,7 +19,6 @@ namespace LibraryManegmentSystem.repositories.Implementations
                         Console.WriteLine(Booki.Id + ", " + Booki.Title + ", " + Booki.Author);
                     }
                 }
-
                 var bookId = UtilsClass.EnterNotEmptyInt("Enter book id to edit");
                 Console.WriteLine("1. Book title");
                 Console.WriteLine("2. Book author");
@@ -92,7 +91,6 @@ namespace LibraryManegmentSystem.repositories.Implementations
         {
             // return guid id
             books.Add(book);
-            Console.WriteLine(books.First().Title);
         }
 
         public Book GetBook(int id, List<Book> books)

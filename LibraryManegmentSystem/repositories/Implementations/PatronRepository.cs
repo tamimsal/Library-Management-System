@@ -1,6 +1,5 @@
 using LibraryManegmentSystem.models;
 using LibraryManegmentSystem.repositories.Interfaces;
-using LibraryManegmentSystem.Utilties;
 
 namespace LibraryManegmentSystem.repositories.Implementations
 {
@@ -14,55 +13,29 @@ namespace LibraryManegmentSystem.repositories.Implementations
             patrons.Remove(toDeletePatron.First());
         }
 
-        public void EditPatronInfoById(ref List<Patron>patrons, ref List<string>phoneNumbers)
+        public void EditPatronInfoById(ref List<Patron>patrons, int patronIdtoEdit, string newVal, int editChoice)
         {
             try
             {
-                Console.WriteLine("Patron Names:");
-                foreach(Patron patroni in patrons)
-                {
-                    Console.WriteLine(patroni.Id + ", " + patroni.Name + ", " + patroni.Email);
-                }
-                var patronIdtoEdit = UtilsClass.EnterNotEmptyInt("Enter patron id to edit:");
-                Console.WriteLine("1. Patron name");
-                Console.WriteLine("2. Patron email");
-                Console.WriteLine("3. Patron phone number");
-                Console.WriteLine("What do you want to edit:");
-                var editChoice = UtilsClass.EnterNotEmptyInt("");
-                switch(editChoice)
+                switch (editChoice)
                 {
                     case 1:
-                        var newName = UtilsClass.EnterNotEmptyString("Enter new patron name: \n");
-                        foreach(Patron patroni in patrons)
-                        {
-                            if(patronIdtoEdit == patroni.Id)
-                            {
-                                patroni.Name = newName;
-                            }
-                        } 
+                        var patronToEdit = from patron in patrons
+                            where patron.Id == patronIdtoEdit
+                            select patron;
+                        patronToEdit.First().Name = newVal;
                         break;
                     case 2:
-                        var newEmail = UtilsClass.EnterPatronEmail();
-                        foreach(Patron patroni in patrons)
-                        {
-                            if(patronIdtoEdit == patroni.Id)
-                            {
-                                patroni.Email = newEmail;
-                            }
-                        } 
+                        var patronToEditEmail = from patron in patrons
+                            where patron.Id == patronIdtoEdit
+                            select patron;
+                        patronToEditEmail.First().Email = newVal;
                         break;
                     case 3:
-                        var newPhone = UtilsClass.EnterPatronPhoneNumber(phoneNumbers);
-                        foreach(Patron patroni in patrons)
-                        {
-                            if(patronIdtoEdit == patroni.Id)
-                            {
-                                patroni.PhoneNumber = newPhone;
-                            }
-                        } 
-                        break;
-                    default:
-                        Console.WriteLine("Please enter one of the following choices only.");
+                        var patronToEditPhoneNumber = from patron in patrons
+                            where patron.Id == patronIdtoEdit
+                            select patron;
+                        patronToEditPhoneNumber.First().PhoneNumber = newVal;
                         break;
                 }
             }   
