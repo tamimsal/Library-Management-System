@@ -13,12 +13,9 @@ namespace LibraryManegmentSystem.services.Implementations
         {
             _bookRepository = bookRepository;
         }
-
         public BookServices()
         {
         }
-
-
         public void ShowAvaliableBooks(ref List<Book> books)
         {
             try{
@@ -87,7 +84,6 @@ namespace LibraryManegmentSystem.services.Implementations
                         var foundBooks = from book in books
                                          where book.Title.Contains(searchWord)
                                          select book;
-                        
                         if(idOfSearchedBook == 0)
                         {
                             idOfSearchedBook = (int)foundBooks.First().Id;
@@ -139,11 +135,8 @@ namespace LibraryManegmentSystem.services.Implementations
             }
             catch
             {
-
             }
             return idOfSearchedBook;
         }
-        
-        
     }
 }

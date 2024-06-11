@@ -18,7 +18,6 @@ namespace LibraryManegmentSystem{
                 taskManager.MainScreen();
             }
         }
-
         static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
@@ -37,4 +36,3 @@ namespace LibraryManegmentSystem{
 // id system
 // N-tier 
 // agile vs waterfall, scrum master
-// dependancy injection

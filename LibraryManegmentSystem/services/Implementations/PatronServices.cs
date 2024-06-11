@@ -25,7 +25,6 @@ namespace LibraryManegmentSystem.services.Implementations
             {
             }
         }
-
         public void ShowPatronBooks(ref List<Patron>patrons, ref List<Book>books){
             try{
                 Console.WriteLine("Patron Names:");
@@ -38,7 +37,6 @@ namespace LibraryManegmentSystem.services.Implementations
                 var borrowed = from pat in patrons
                     where pat.Id == patronIdtoShow
                     select pat.BorrowedBooks;
-                
                 foreach(var book in borrowed.First())
                 {
                     Console.WriteLine(book.Title);
@@ -48,7 +46,6 @@ namespace LibraryManegmentSystem.services.Implementations
             {
             }
         }
-
         public int SearchForAPatron(ref List<Patron> patrons)
         {
             int toReutrnId = 0;

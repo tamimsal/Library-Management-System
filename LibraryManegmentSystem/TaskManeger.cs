@@ -12,7 +12,6 @@ namespace LibraryManegmentSystem
         private readonly IPatronServices _patronServices;
         private readonly IBookServices _bookServices;
         private readonly ITransactionsServices _TransactionsServices;
-        
         public TaskManegerFun(IBookRepository bookRepository, IPatronRepository patronRepository,
             IPatronServices patronServices, IBookServices bookServices, ITransactionsServices transactionsServices)
         {
@@ -75,7 +74,6 @@ namespace LibraryManegmentSystem
             {
             }
         }
-
         void PatronScreen()
         {
             try
@@ -284,7 +282,6 @@ namespace LibraryManegmentSystem
 
                     case 3:
                         EditPatronInfoByIdScreen();
-                        //_patronRepository.EditPatronInfoById(ref patrons, ref phoneNumbers);
                         break;
                     case 4:
                         _patronServices.ShowPatronBooks(ref patrons, ref books);
@@ -305,10 +302,8 @@ namespace LibraryManegmentSystem
             }
             catch
             {
-
             }
         }
-
         void EditPatronInfoByIdScreen()
         {
             Console.WriteLine("Patron Names:");
