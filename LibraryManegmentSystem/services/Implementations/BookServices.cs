@@ -59,8 +59,10 @@ namespace LibraryManegmentSystem.services.Implementations
                     Console.WriteLine("No books selected");
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
+                throw e;
             }
             return bookId;
         }
@@ -134,8 +136,10 @@ namespace LibraryManegmentSystem.services.Implementations
                     Console.WriteLine("No books found!");
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
+                throw e;
             }
             return idOfSearchedBook;
         }

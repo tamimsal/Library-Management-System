@@ -83,9 +83,7 @@ namespace LibraryManegmentSystem.services.Implementations
                     bookToCheckOut.BorrowDate = DateTime.Now;
                     bookToCheckOut.ToBeRetaurnedDate = DateTime.Now.AddDays(14);
                     bookToCheckOut.BorrowById = patronIdToCheckOut;
-
                     patronToCheckOut.BorrowedBooks.Add(bookToCheckOut);
-
                     Console.WriteLine($"Book '{bookToCheckOut.Title}' checked out by {patronToCheckOut.Name}.");
                 }
                 else
@@ -93,9 +91,10 @@ namespace LibraryManegmentSystem.services.Implementations
                     Console.WriteLine("Book is not available.");
                 }
             }
-            catch(Exception ex)
+            catch(Exception e)
             {
-                Console.WriteLine($"An error occurred: {ex.Message}");
+                Console.WriteLine(e.Message);
+                throw e;
             }
         }
     }

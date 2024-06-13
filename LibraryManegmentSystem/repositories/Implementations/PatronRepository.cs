@@ -7,10 +7,16 @@ namespace LibraryManegmentSystem.repositories.Implementations
     {
         public void DeletePatron(ref List<Patron> patrons, int id)
         {
-            var toDeletePatron = from patron in patrons
-                where patron.Id == id
-                select patron;
-            patrons.Remove(toDeletePatron.First());
+            try
+            {
+                var toDeletePatron = patrons.FirstOrDefault(x => x.Id == id);
+                patrons.Remove(toDeletePatron);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
         public void EditPatronInfoById(ref List<Patron> patrons, int patronIdtoEdit, Patron newPatron)
         {
@@ -30,8 +36,10 @@ namespace LibraryManegmentSystem.repositories.Implementations
                     patronToEdit.PhoneNumber = newPatron.PhoneNumber;
                 }
             }   
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
+                throw;
             }
         }
         public void AddPatron(ref Patron newPatron, ref List<Patron> patrons)

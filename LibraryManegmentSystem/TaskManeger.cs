@@ -70,8 +70,10 @@ namespace LibraryManegmentSystem
                         break;
                 }
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
+                throw;
             }
         }
         void PatronScreen()
@@ -102,8 +104,10 @@ namespace LibraryManegmentSystem
                         break;
                 }
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
+                throw;
             }
         }
 
@@ -148,8 +152,10 @@ namespace LibraryManegmentSystem
                         break;
                 }
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
+                throw;
             }
         }
         void EnterBookChoice(ref List<Book> books, ref bool bookDo, ref int ids)
@@ -193,8 +199,10 @@ namespace LibraryManegmentSystem
                         break;
                 }
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
+                throw;
             }
         }
 
@@ -215,14 +223,13 @@ namespace LibraryManegmentSystem
                     Number = ids, Id = new Guid()
                 };
                 _bookRepository.AddBook(newBook, ref books);
-                //books.Add(newBook);
                 Console.WriteLine(books.First().Author);
             }
-            catch
+            catch (Exception e)
             {
-                Console.WriteLine("Error, be careful");
+                Console.WriteLine(e);
+                throw;
             }
-
         }
         public void DeleteBookScreen(ref List<Book> books)
         {
@@ -251,8 +258,10 @@ namespace LibraryManegmentSystem
                 _bookRepository.DeleteBook(ref books, bookID);
                 Console.WriteLine("Book deleted Successfully");
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
+                throw;
             }
         }
 
@@ -300,45 +309,55 @@ namespace LibraryManegmentSystem
                         break;
                 }
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
+                throw;
             }
         }
         void EditPatronInfoByIdScreen()
         {
-            Console.WriteLine("Patron Names:");
-            foreach(Patron patroni in patrons)
+            try
             {
-                Console.WriteLine(patroni.Id + ", " + patroni.Name + ", " + patroni.Email);
+                Console.WriteLine("Patron Names:");
+                foreach(Patron patroni in patrons)
+                {
+                    Console.WriteLine(patroni.Id + ", " + patroni.Name + ", " + patroni.Email);
+                }
+                var patronIdtoEdit = UtilsClass.EnterNotEmptyInt("Enter patron id to edit:");
+                Console.WriteLine("1. Patron name");
+                Console.WriteLine("2. Patron email");
+                Console.WriteLine("3. Patron phone number");
+                Console.WriteLine("What do you want to edit:");
+                var editChoice = UtilsClass.EnterNotEmptyInt("");
+                Patron newPatron = new();
+                switch(editChoice)
+                {
+                    case 1:
+                        var newName = UtilsClass.EnterNotEmptyString("Enter new patron name: \n");
+                        newPatron.Name = newName;
+                        break;
+                    case 2:
+                        var newEmail = UtilsClass.EnterPatronEmail();
+                        newPatron.Email = newEmail;
+
+                        break;
+                    case 3:
+                        var newPhone = UtilsClass.EnterPatronPhoneNumber(phoneNumbers);
+                        newPatron.PhoneNumber = newPhone;
+
+                        break;
+                    default:
+                        Console.WriteLine("Please enter one of the following choices only.");
+                        break;
+                }
+                _patronRepository.EditPatronInfoById(ref patrons, patronIdtoEdit, newPatron);
             }
-            var patronIdtoEdit = UtilsClass.EnterNotEmptyInt("Enter patron id to edit:");
-            Console.WriteLine("1. Patron name");
-            Console.WriteLine("2. Patron email");
-            Console.WriteLine("3. Patron phone number");
-            Console.WriteLine("What do you want to edit:");
-            var editChoice = UtilsClass.EnterNotEmptyInt("");
-            Patron newPatron = new();
-            switch(editChoice)
+            catch (Exception e)
             {
-                case 1:
-                    var newName = UtilsClass.EnterNotEmptyString("Enter new patron name: \n");
-                    newPatron.Name = newName;
-                    break;
-                case 2:
-                    var newEmail = UtilsClass.EnterPatronEmail();
-                    newPatron.Email = newEmail;
-
-                    break;
-                case 3:
-                    var newPhone = UtilsClass.EnterPatronPhoneNumber(phoneNumbers);
-                    newPatron.PhoneNumber = newPhone;
-
-                    break;
-                default:
-                    Console.WriteLine("Please enter one of the following choices only.");
-                    break;
+                Console.WriteLine(e);
+                throw;
             }
-            _patronRepository.EditPatronInfoById(ref patrons, patronIdtoEdit, newPatron);
         }
 
         void EditBookByIdScreen()
@@ -406,6 +425,7 @@ namespace LibraryManegmentSystem
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                throw;
             }
         }
         void AddPatronScreen(ref List<Patron> patrons, ref List<string> phoneNumbers, int patronId)
@@ -422,8 +442,10 @@ namespace LibraryManegmentSystem
                     { Name = patronName, Email = patronEmail, Id = patronId, PhoneNumber = patronPhone };
                 _patronRepository.AddPatron(ref newPatron, ref patrons);
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
+                throw;
             }
         }
 
@@ -460,8 +482,10 @@ namespace LibraryManegmentSystem
                 }
                 _patronRepository.DeletePatron(ref patrons, deleteId);
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }

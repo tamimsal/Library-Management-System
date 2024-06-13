@@ -21,8 +21,10 @@ namespace LibraryManegmentSystem.services.Implementations
                     Console.WriteLine(patroni.Name);
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
+                throw e;
             }
         }
         public void ShowPatronBooks(ref List<Patron>patrons, ref List<Book>books){
@@ -42,8 +44,10 @@ namespace LibraryManegmentSystem.services.Implementations
                     Console.WriteLine(book.Title);
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
+                throw e;
             }
         }
         public int SearchForAPatron(ref List<Patron> patrons)
@@ -121,8 +125,10 @@ namespace LibraryManegmentSystem.services.Implementations
                         break;
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
+                throw e;
             }
             return toReutrnId;
         }
@@ -148,10 +154,11 @@ namespace LibraryManegmentSystem.services.Implementations
                     patronId = ChoosePatronById(patrons);
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
+                throw e;
             }
-
             return patronId;
         }
     }
