@@ -5,17 +5,14 @@ using LibraryManegmentSystem.Utilties;
 
 namespace LibraryManegmentSystem.services.Implementations
 {
-    class BookServices : IBookServices
+    public class BookServices : IBookServices
     {
         private readonly IBookRepository _bookRepository;
-
         public BookServices(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
         }
-        public BookServices()
-        {
-        }
+        // add throw everywhere
         public void ShowAvaliableBooks(ref List<Book> books)
         {
             try{
@@ -29,11 +26,13 @@ namespace LibraryManegmentSystem.services.Implementations
                     select booki;
                 foreach (var booki in avaliableBooks)
                 {
-                    Console.WriteLine(booki.Title);
+                    Console.WriteLine(booki.Number+ ", " + booki.Title + ", " + booki.Author);
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
+                throw e;
             }
         }
         public int ChooseBookById(ref List<Book> books)
@@ -42,6 +41,7 @@ namespace LibraryManegmentSystem.services.Implementations
             try{
                 Console.WriteLine("--------------------------------");
                 Console.WriteLine("All Books");
+                // use method above
                 foreach(Book Booki in books)
                 {
                     if(Booki.Avaliable == true)
@@ -64,9 +64,9 @@ namespace LibraryManegmentSystem.services.Implementations
             }
             return bookId;
         }
-        public int SearchForABook(ref List<Book> books)
+        public int? SearchForABook(ref List<Book> books)
         {
-            var idOfSearchedBook = 0;
+            int? idOfSearchedBook = 0;
             try
             {
                 ShowAvaliableBooks(ref books);   
@@ -81,6 +81,7 @@ namespace LibraryManegmentSystem.services.Implementations
                 switch(searchChoice)
                 {
                     case 1:
+                        // use linq expression => 
                         var foundBooks = from book in books
                                          where book.Title.Contains(searchWord)
                                          select book;
@@ -101,7 +102,7 @@ namespace LibraryManegmentSystem.services.Implementations
                         
                         if(idOfSearchedBook == 0)
                         {
-                            idOfSearchedBook = (int)foundBooksA.First().Number;
+                            idOfSearchedBook = foundBooksA?.FirstOrDefault()?.Number;
                         }
                         foreach(var book in foundBooksA)
                         {
@@ -116,7 +117,7 @@ namespace LibraryManegmentSystem.services.Implementations
                         
                         if(idOfSearchedBook == 0)
                         {
-                            idOfSearchedBook = (int)foundBooksG.First().Number;
+                            idOfSearchedBook = foundBooksG?.FirstOrDefault()?.Number;
                         }
                         foreach(var book in foundBooksG)
                         {

@@ -6,38 +6,33 @@ namespace LibraryManegmentSystem.repositories.Implementations
 {
     public class BookRepository : IBookRepository
     {
+        // move books/ patrons here 
 
-        public void EditBookById(ref List<Book> books, int editChoice, int bookNumberToEdit, string newVal)
+        public void EditBookById(ref List<Book> books, int bookNumberToEdit, Book newBook)
         {
             try
             {
-                var boo = from book in books
-                    where book.Number == bookNumberToEdit
-                    select book;
-                switch (editChoice)
+                var bookToEdit = books.FirstOrDefault(x => x.Number == bookNumberToEdit);
+                
+                if (newBook.Avaliable != null)
                 {
-                    case 1:
-                        boo.First().Title = newVal;
-                        break;
-                    case 2:
-                        boo.First().Author = newVal;
-                        break;
-                    case 3:
-                        boo.First().PublihedDate = newVal;
-                        break;
-                    case 4:
-                        boo.First().Genre = newVal;
-                        break;
-                    case 5:
-                        if (newVal == "1")
-                        {
-                            boo.First().Avaliable = true;
-                        }
-                        else
-                        {
-                            boo.First().Avaliable = false;
-                        }
-                        break;
+                    bookToEdit.Avaliable = newBook.Avaliable;
+                }
+                else if (newBook.Author != null)
+                {
+                    bookToEdit.Author = newBook.Author;
+                }
+                else if (newBook.Title != null)
+                {
+                    bookToEdit.Title = newBook.Title;
+                }
+                else if (newBook.PublihedDate != null)
+                {
+                    bookToEdit.PublihedDate = newBook.PublihedDate;
+                }
+                else if (newBook.Genre != null)
+                {
+                    bookToEdit.Genre = newBook.Genre;
                 }
             }
             catch
@@ -47,10 +42,8 @@ namespace LibraryManegmentSystem.repositories.Implementations
 
         public void DeleteBook(ref List<Book> books, int number)
         {
-            var toDeleteBook = from bookq in books
-                where bookq.Number == number
-                select bookq;
-            books.Remove(toDeleteBook.First());
+            var toDeleteBook = books.FirstOrDefault(x => x.Number == number);
+            books.Remove(toDeleteBook);
         }
 
         public void AddBook(Book book, ref List<Book> books)
@@ -61,7 +54,7 @@ namespace LibraryManegmentSystem.repositories.Implementations
 
         public Book GetBook(int number, List<Book> books)
         {
-            return books.FirstOrDefault(x => x.Number == number);
+            return books.FirstOrDefault(x => x.Number == number); // use this
         }
     }
 }

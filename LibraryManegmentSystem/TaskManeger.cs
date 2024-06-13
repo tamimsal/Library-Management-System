@@ -208,12 +208,11 @@ namespace LibraryManegmentSystem
                 string? bookGenre = UtilsClass.EnterNotEmptyString("Enter book genre: \n");
                 ids++;
                 DateTime borrowedDate = DateTime.Now, dateToBeRet = DateTime.Now;
-                Guid bookGuid = new Guid();
                 Book newBook = new Book()
                 {
                     Title = bookTitle, Author = bookAuthor, PublihedDate = publihedDate, Genre = bookGenre,
                     BorrowDate = borrowedDate, ToBeRetaurnedDate = dateToBeRet, Avaliable = true, BorrowById = 0,
-                    Number = ids, Id = bookGuid
+                    Number = ids, Id = new Guid()
                 };
                 _bookRepository.AddBook(newBook, ref books);
                 //books.Add(newBook);
@@ -241,7 +240,7 @@ namespace LibraryManegmentSystem
                         bookID = _bookServices.ChooseBookById(ref books);
                         break;
                     case 2:
-                        bookID = _bookServices.SearchForABook(ref books);
+                        bookID = (int)_bookServices.SearchForABook(ref books);
                         break;
                     default:
                         Console.WriteLine("Please enter one of the following choices only.");
@@ -318,25 +317,28 @@ namespace LibraryManegmentSystem
             Console.WriteLine("3. Patron phone number");
             Console.WriteLine("What do you want to edit:");
             var editChoice = UtilsClass.EnterNotEmptyInt("");
+            Patron newPatron = new();
             switch(editChoice)
             {
                 case 1:
                     var newName = UtilsClass.EnterNotEmptyString("Enter new patron name: \n");
-                    _patronRepository.EditPatronInfoById(ref patrons, patronIdtoEdit, newName, editChoice);
-                    
+                    newPatron.Name = newName;
                     break;
                 case 2:
                     var newEmail = UtilsClass.EnterPatronEmail();
-                    _patronRepository.EditPatronInfoById(ref patrons, patronIdtoEdit, newEmail, editChoice);
+                    newPatron.Email = newEmail;
+
                     break;
                 case 3:
                     var newPhone = UtilsClass.EnterPatronPhoneNumber(phoneNumbers);
-                    _patronRepository.EditPatronInfoById(ref patrons, patronIdtoEdit, newPhone, editChoice);
+                    newPatron.PhoneNumber = newPhone;
+
                     break;
                 default:
                     Console.WriteLine("Please enter one of the following choices only.");
                     break;
             }
+            _patronRepository.EditPatronInfoById(ref patrons, patronIdtoEdit, newPatron);
         }
 
         void EditBookByIdScreen()
@@ -344,13 +346,7 @@ namespace LibraryManegmentSystem
             try
             {
                 Console.WriteLine("--------------------------------");
-                foreach (Book Booki in books)
-                {
-                    if (Booki.Avaliable == true)
-                    {
-                        Console.WriteLine(Booki.Number + ", " + Booki.Title + ", " + Booki.Author);
-                    }
-                }
+                _bookServices.ShowAvaliableBooks(ref books);
                 var bookId = UtilsClass.EnterNotEmptyInt("Enter book id to edit");
                 Console.WriteLine("1. Book title");
                 Console.WriteLine("2. Book author");
@@ -359,29 +355,26 @@ namespace LibraryManegmentSystem
                 Console.WriteLine("5. Book avaliability");
                 Console.WriteLine("What do you want to edit:");
                 var editChoice = UtilsClass.EnterNotEmptyInt("");
-                var boo = from book in books
-                    where book.Number == bookId
-                    select book;
+                var boo = books.FirstOrDefault(x => x.Number == bookId);
+                Book newBook = new();
+                
                 switch (editChoice)
                 {
                     case 1:
                         var newTitle = UtilsClass.EnterNotEmptyString("Enter new title:");
-                        _bookRepository.EditBookById(ref books, editChoice, bookId,newTitle);
+                        newBook.Title = newTitle;
                         break;
                     case 2:
                         var newAuthor = UtilsClass.EnterNotEmptyString("Enter new author:");
-                        _bookRepository.EditBookById(ref books, editChoice, bookId, newAuthor);
-
+                        newBook.Author = newAuthor;
                         break;
                     case 3:
                         var newPd = UtilsClass.EnterNotEmptyString("Enter new Published date vy dd/mm/yyyy:");
-                        _bookRepository.EditBookById(ref books, editChoice, bookId, newPd);
-
+                        newBook.PublihedDate = newPd;
                         break;
                     case 4:
                         var newGenre = UtilsClass.EnterNotEmptyString("Enter new genre:");
-                        _bookRepository.EditBookById(ref books, editChoice, bookId, newGenre);
-
+                        newBook.Genre = newGenre;
                         break;
                     case 5:
                         Console.WriteLine("1. Available");
@@ -390,24 +383,25 @@ namespace LibraryManegmentSystem
                         var newAva = UtilsClass.EnterNotEmptyInt("");
                         if (newAva == 1)
                         {
-                            _bookRepository.EditBookById(ref books, editChoice, bookId, "1");
+                            newBook.Avaliable = true;
                             Console.WriteLine("Status Channged Successufully");
                         }
                         else if (newAva == 2)
                         {
-                            _bookRepository.EditBookById(ref books, editChoice, bookId,"0");
+                            newBook.Avaliable = false;
                             Console.WriteLine("Status Channged Successufully");
                         }
                         else
                         {
                             Console.WriteLine("Choose only 1 or 2 \n status not changed");
                         }
-
                         break;
                     default:
                         Console.WriteLine("Please enter one of the following choices only.");
                         break;
                 }
+                _bookRepository.EditBookById(ref books, bookId, newBook);
+
             }
             catch (Exception e)
             {

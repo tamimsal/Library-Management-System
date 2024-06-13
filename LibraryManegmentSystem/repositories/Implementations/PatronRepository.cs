@@ -12,24 +12,22 @@ namespace LibraryManegmentSystem.repositories.Implementations
                 select patron;
             patrons.Remove(toDeletePatron.First());
         }
-        public void EditPatronInfoById(ref List<Patron>patrons, int patronIdtoEdit, string newVal, int editChoice)
+        public void EditPatronInfoById(ref List<Patron> patrons, int patronIdtoEdit, Patron newPatron)
         {
             try
             {
-                var patronToEdit = from patron in patrons
-                    where patron.Id == patronIdtoEdit
-                    select patron;
-                switch (editChoice)
+                var patronToEdit = patrons.FirstOrDefault(x => x.Id == patronIdtoEdit);
+                if (newPatron.Name != null)
                 {
-                    case 1:
-                        patronToEdit.First().Name = newVal;
-                        break;
-                    case 2:
-                        patronToEdit.First().Email = newVal;
-                        break;
-                    case 3:
-                        patronToEdit.First().PhoneNumber = newVal;
-                        break;
+                    patronToEdit.Name = newPatron.Name;
+                }
+                else if (newPatron.Email != null)
+                {
+                    patronToEdit.Email = newPatron.Email;
+                }
+                else if (newPatron.PhoneNumber != null)
+                {
+                    patronToEdit.PhoneNumber = newPatron.PhoneNumber;
                 }
             }   
             catch

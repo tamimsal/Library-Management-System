@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 namespace LibraryManegmentSystem{
     class MainClass
     {
+        // web application and web api -- check and see 
         static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();

@@ -6,7 +6,7 @@ namespace LibraryManegmentSystem.services.Interfaces
     {
         public void ShowAvaliableBooks(ref List<Book> books);
         public int ChooseBookById(ref List<Book> books);
-        public int SearchForABook(ref List<Book> books);
+        public int? SearchForABook(ref List<Book> books);
 
     }
 }

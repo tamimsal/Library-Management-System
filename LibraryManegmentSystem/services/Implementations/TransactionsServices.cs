@@ -45,7 +45,7 @@ namespace LibraryManegmentSystem.services.Implementations
                         break;
                     
                     case 2:
-                        idToCheckOut = _bookServices.SearchForABook(ref books);
+                        idToCheckOut = (int)_bookServices.SearchForABook(ref books);
                         break;
                     default:
                         Console.WriteLine("Please enter one of the following choices only.");
