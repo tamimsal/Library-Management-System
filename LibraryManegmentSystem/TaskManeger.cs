@@ -21,10 +21,7 @@ namespace LibraryManegmentSystem
             _bookServices = bookServices;
             _TransactionsServices = transactionsServices;
         }
-
-        //List<Book> books = new ();
-        //List<Patron> patrons = new List<Patron>();
-        List<string> phoneNumbers = new List<string>();
+        
         int patronId = 0;
         bool doComplete = true;
         bool bookDo = true;
@@ -135,7 +132,7 @@ namespace LibraryManegmentSystem
                         patronChoiceDo = true;
                         while (patronChoiceDo)
                         {
-                            EnterPatronChoiceScreen(ref phoneNumbers, ref patronChoiceDo, patronId);
+                            EnterPatronChoiceScreen(ref patronChoiceDo, patronId);
                         }
                         break;
                     
@@ -205,7 +202,6 @@ namespace LibraryManegmentSystem
                 throw;
             }
         }
-
         public void AddBookScreen(ref int ids)
         {
             try
@@ -264,8 +260,7 @@ namespace LibraryManegmentSystem
             }
         }
 
-        void EnterPatronChoiceScreen(ref List<string> phoneNumbers, ref bool patronChoiceDo,
-            int patronId)
+        void EnterPatronChoiceScreen(ref bool patronChoiceDo, int patronId)
         {
             try
             {
@@ -284,7 +279,7 @@ namespace LibraryManegmentSystem
                 switch (patronChoice)
                 {
                     case 1:
-                        AddPatronScreen(ref phoneNumbers, patronId);
+                        AddPatronScreen(patronId);
                         break;
                     case 2:
                         _patronServices.ShowAllPatrons();
@@ -345,7 +340,7 @@ namespace LibraryManegmentSystem
 
                         break;
                     case 3:
-                        var newPhone = UtilsClass.EnterPatronPhoneNumber(phoneNumbers);
+                        var newPhone = UtilsClass.EnterPatronPhoneNumber();
                         newPatron.PhoneNumber = newPhone;
 
                         break;
@@ -429,14 +424,14 @@ namespace LibraryManegmentSystem
                 throw;
             }
         }
-        void AddPatronScreen(ref List<string> phoneNumbers, int patronId)
+        void AddPatronScreen(int patronId)
         {
             try
             {
                 Console.WriteLine("--------------------------------");
                 var patronName = UtilsClass.EnterNotEmptyString("Enter patron name: \n");
                 var patronEmail = UtilsClass.EnterPatronEmail();
-                var patronPhone = UtilsClass.EnterPatronPhoneNumber(phoneNumbers);
+                var patronPhone = UtilsClass.EnterPatronPhoneNumber();
                 patronId++;
                 List<Book> borroweds = new List<Book>();
                 Patron newPatron = new Patron()

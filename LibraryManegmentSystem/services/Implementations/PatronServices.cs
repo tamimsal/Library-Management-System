@@ -28,7 +28,7 @@ namespace LibraryManegmentSystem.services.Implementations
                 Console.WriteLine("Patrons Names");
                 foreach(Patron patroni in patrons)
                 {
-                    Console.WriteLine(patroni.Name);
+                    Console.WriteLine(patroni.Id + ", " + patroni.Name + ", " + patroni.Email);
                 }
             }
             catch(Exception e)
@@ -41,10 +41,7 @@ namespace LibraryManegmentSystem.services.Implementations
             try{
                 List<Patron> patrons = _patronRepository.GetAllPatrons();
                 Console.WriteLine("Patron Names:");
-                foreach(Patron patroni in patrons)
-                {
-                    Console.WriteLine(patroni.Id + ", " + patroni.Name + ", " + patroni.Email);
-                }
+                ShowAllPatrons();
                 Console.WriteLine("Enter patron id to show books:");
                 var patronIdtoShow = UtilsClass.EnterNotEmptyInt("");
                 var borrowed = from pat in patrons

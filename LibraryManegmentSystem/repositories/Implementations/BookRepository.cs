@@ -8,9 +8,7 @@ namespace LibraryManegmentSystem.repositories.Implementations
 
     public class BookRepository : IBookRepository
     {
-        // move books/ patrons here 
         List<Book> _books = new();
-
         public void EditBookById(int bookNumberToEdit, Book newBook)
         {
             try

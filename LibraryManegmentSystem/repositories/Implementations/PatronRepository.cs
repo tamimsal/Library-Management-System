@@ -5,13 +5,13 @@ namespace LibraryManegmentSystem.repositories.Implementations
 {
     public class PatronRepository : IPatronRepository
     {
-        List<Patron> patrons = new();
+        List<Patron> _patrons = new();
         public void DeletePatron(int id)
         {
             try
             {
-                var toDeletePatron = patrons.FirstOrDefault(x => x.Id == id);
-                patrons.Remove(toDeletePatron);
+                var toDeletePatron = _patrons.FirstOrDefault(x => x.Id == id);
+                _patrons.Remove(toDeletePatron);
             }
             catch (Exception e)
             {
@@ -23,7 +23,7 @@ namespace LibraryManegmentSystem.repositories.Implementations
         {
             try
             {
-                var patronToEdit = patrons.FirstOrDefault(x => x.Id == patronIdtoEdit);
+                var patronToEdit = _patrons.FirstOrDefault(x => x.Id == patronIdtoEdit);
                 if (newPatron.Name != null)
                 {
                     patronToEdit.Name = newPatron.Name;
@@ -47,7 +47,7 @@ namespace LibraryManegmentSystem.repositories.Implementations
         {
             try
             {
-                patrons.Add(newPatron);   
+                _patrons.Add(newPatron);   
             }
             catch (Exception e)
             {
@@ -57,7 +57,7 @@ namespace LibraryManegmentSystem.repositories.Implementations
         }
         public List<Patron> GetAllPatrons()
         {
-            return patrons;
+            return _patrons;
         }
     }
 }

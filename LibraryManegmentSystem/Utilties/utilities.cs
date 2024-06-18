@@ -24,7 +24,7 @@ namespace LibraryManegmentSystem.Utilties
             }
             return notEmptyString;
         }
-        public static string EnterPatronPhoneNumber(List<string> phoneNumbers)
+        public static string EnterPatronPhoneNumber()
         {
             string phoneNumber = "";
             string pattern = @"0\d{9}";
@@ -40,7 +40,6 @@ namespace LibraryManegmentSystem.Utilties
                     if(isCorrectPhoneNumber.IsMatch(phoneNumber))
                     {
                         isOk = true;
-                        phoneNumbers.Add(phoneNumber);
                     }
                     else{
                         Console.WriteLine("Please enter correct phone number: only numbers, not duplicated and 10 digits");
