@@ -23,12 +23,12 @@ namespace LibraryManegmentSystem{
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddTransient<IBookRepository, BookRepository>();
-                    services.AddTransient<IPatronRepository, PatronRepository>();
-                    services.AddTransient<IPatronServices, PatronServices>();
-                    services.AddTransient<IBookServices, BookServices>();
-                    services.AddTransient<ITransactionsServices, TransactionsServices>();
-                    services.AddTransient<TaskManegerFun>();
+                    services.AddSingleton<IBookRepository, BookRepository>();
+                    services.AddSingleton<IPatronRepository, PatronRepository>();
+                    services.AddSingleton<IPatronServices, PatronServices>();
+                    services.AddSingleton<IBookServices, BookServices>();
+                    services.AddSingleton<ITransactionsServices, TransactionsServices>();
+                    services.AddSingleton<TaskManegerFun>();
                 });
     }
 }

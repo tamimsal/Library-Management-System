@@ -12,10 +12,12 @@ namespace LibraryManegmentSystem.services.Implementations
         {
             _bookRepository = bookRepository;
         }
-        // add throw everywhere
-        public void ShowAvaliableBooks(ref List<Book> books)
+        
+        public void ShowAvaliableBooks()
         {
-            try{
+            try
+            {
+                List<Book> books = _bookRepository.GetAllBooks();
                 if(books.Count == 0)
                 {
                     Console.WriteLine("No books found");
@@ -35,26 +37,18 @@ namespace LibraryManegmentSystem.services.Implementations
                 throw e;
             }
         }
-        public int ChooseBookById(ref List<Book> books)
+        public int ChooseBookById()
         {
             int bookId = 0;
             try{
+                List<Book> books = _bookRepository.GetAllBooks();
                 Console.WriteLine("--------------------------------");
                 Console.WriteLine("All Books");
-                // use method above
-                foreach(Book Booki in books)
-                {
-                    if(Booki.Avaliable == true)
-                    {
-                        Console.WriteLine(Booki.Number + ", " + Booki.Title + ", " + Booki.Author);
-                    }
-                }
+                ShowAvaliableBooks();
                 Console.WriteLine("Enter book id");
                 bookId = UtilsClass.EnterNotEmptyInt("");
-                var foundBook = from book in books
-                    where book.Number == bookId
-                    select book;
-                if(foundBook.First().Number == bookId)
+                var foundBook = books.FirstOrDefault(x => x.Number == bookId);
+                if(foundBook.Number == bookId)
                 {
                     Console.WriteLine("No books selected");
                 }
@@ -66,12 +60,13 @@ namespace LibraryManegmentSystem.services.Implementations
             }
             return bookId;
         }
-        public int? SearchForABook(ref List<Book> books)
+        public int? SearchForABook()
         {
             int? idOfSearchedBook = 0;
             try
             {
-                ShowAvaliableBooks(ref books);   
+                List<Book> books = _bookRepository.GetAllBooks();
+                ShowAvaliableBooks();   
                 Console.WriteLine("Search By:");
                 Console.WriteLine("1. Book title");
                 Console.WriteLine("2. Book author");
@@ -83,13 +78,12 @@ namespace LibraryManegmentSystem.services.Implementations
                 switch(searchChoice)
                 {
                     case 1:
-                        // use linq expression => 
                         var foundBooks = from book in books
                                          where book.Title.Contains(searchWord)
                                          select book;
                         if(idOfSearchedBook == 0)
                         {
-                            idOfSearchedBook = (int)foundBooks.First().Number;
+                            idOfSearchedBook = (int)foundBooks?.FirstOrDefault()?.Number;
                         }
                         foreach(var book in foundBooks)
                         {

@@ -19,12 +19,15 @@ namespace LibraryManegmentSystem.services.Implementations
             _patronServices = patronServices;
             _bookServices = bookServices;
         }
-        public void CheckOutBook(ref List<Book> books,ref List<Patron> patrons)
+        public void CheckOutBook()
         {   
             try
             {
+                List<Book> books = _bookRepository.GetAllBooks();
+                List<Patron> patrons = _patronRepository.GetAllPatrons();
+
                 Console.WriteLine("All Books");
-                _bookServices.ShowAvaliableBooks(ref books);
+                _bookServices.ShowAvaliableBooks();
                 Console.WriteLine("Choose one method:");
                 Console.WriteLine("1. Checkout book by id");
                 Console.WriteLine("2. Search for a book:");
@@ -35,17 +38,13 @@ namespace LibraryManegmentSystem.services.Implementations
                 {
                     case 1: 
                         Console.WriteLine("--------------------------------");
-                        foreach(Book Booki in books){
-                            if(Booki.Avaliable == true){
-                                Console.WriteLine(Booki.Number + ", " + Booki.Title + ", " + Booki.Author);
-                            }
-                        }
+                        _bookServices.ShowAvaliableBooks();
                         Console.WriteLine("Enter book id to checkout");
                         idToCheckOut = Convert.ToInt32(Console.ReadLine());
                         break;
                     
                     case 2:
-                        idToCheckOut = (int)_bookServices.SearchForABook(ref books);
+                        idToCheckOut = (int)_bookServices.SearchForABook();
                         break;
                     default:
                         Console.WriteLine("Please enter one of the following choices only.");

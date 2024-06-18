@@ -1,4 +1,5 @@
 using LibraryManegmentSystem.models;
+using LibraryManegmentSystem.repositories.Interfaces;
 using LibraryManegmentSystem.services.Interfaces;
 using LibraryManegmentSystem.Utilties;
 
@@ -6,10 +7,19 @@ namespace LibraryManegmentSystem.services.Implementations
 {
     class PatronServices : IPatronServices
     {
-        public void ShowAllPatrons(ref List<Patron> patrons)
+        private readonly IPatronRepository _patronRepository;
+
+
+        public PatronServices(IPatronRepository patronRepository)
+        {
+            _patronRepository = patronRepository;
+
+        }
+        public void ShowAllPatrons()
         {
             try
             {
+                List<Patron> patrons = _patronRepository.GetAllPatrons();
                 if(patrons.Count == 0)
                 {
                     Console.WriteLine("Not patrons found");
@@ -27,8 +37,9 @@ namespace LibraryManegmentSystem.services.Implementations
                 throw e;
             }
         }
-        public void ShowPatronBooks(ref List<Patron>patrons, ref List<Book>books){
+        public void ShowPatronBooks(){
             try{
+                List<Patron> patrons = _patronRepository.GetAllPatrons();
                 Console.WriteLine("Patron Names:");
                 foreach(Patron patroni in patrons)
                 {
@@ -50,12 +61,13 @@ namespace LibraryManegmentSystem.services.Implementations
                 throw e;
             }
         }
-        public int SearchForAPatron(ref List<Patron> patrons)
+        public int SearchForAPatron()
         {
             int toReutrnId = 0;
             try
             {
-                ShowAllPatrons(ref patrons);
+                List<Patron> patrons = _patronRepository.GetAllPatrons();
+                ShowAllPatrons();
                 Console.WriteLine("Search by: ");
                 Console.WriteLine("1. Name");
                 Console.WriteLine("2. Email");
@@ -132,12 +144,12 @@ namespace LibraryManegmentSystem.services.Implementations
             }
             return toReutrnId;
         }
-    
-        public int ChoosePatronById(List<Patron> patrons)
+        public int ChoosePatronById()
         {
             int patronId = 0;
             try
             {
+                List<Patron> patrons = _patronRepository.GetAllPatrons();
                 Console.WriteLine("Patron Names:");
                 foreach (Patron patroni in patrons)
                 {
@@ -151,7 +163,7 @@ namespace LibraryManegmentSystem.services.Implementations
                 if (!found.Contains(patronId))
                 {
                     Console.WriteLine("Please enter one of the following choices only.");
-                    patronId = ChoosePatronById(patrons);
+                    patronId = ChoosePatronById();
                 }
             }
             catch(Exception e)

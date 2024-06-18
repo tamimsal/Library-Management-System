@@ -22,8 +22,8 @@ namespace LibraryManegmentSystem
             _TransactionsServices = transactionsServices;
         }
 
-        List<Book> books = new ();
-        List<Patron> patrons = new List<Patron>();
+        //List<Book> books = new ();
+        //List<Patron> patrons = new List<Patron>();
         List<string> phoneNumbers = new List<string>();
         int patronId = 0;
         bool doComplete = true;
@@ -88,11 +88,11 @@ namespace LibraryManegmentSystem
                 switch (patronScreenChoice)
                 {
                     case 1:
-                        _patronServices.ShowPatronBooks(ref patrons, ref books);
+                        _patronServices.ShowPatronBooks();
                         break;
 
                     case 2:
-                        _bookServices.ShowAvaliableBooks(ref books);
+                        _bookServices.ShowAvaliableBooks();
                         break;
 
                     case 3:
@@ -127,7 +127,7 @@ namespace LibraryManegmentSystem
                         bookDo = true;
                         while (bookDo)
                         {
-                            EnterBookChoice(ref books, ref bookDo, ref ids);
+                            EnterBookChoice(ref bookDo, ref ids);
                         }
                         break;
 
@@ -135,12 +135,12 @@ namespace LibraryManegmentSystem
                         patronChoiceDo = true;
                         while (patronChoiceDo)
                         {
-                            EnterPatronChoiceScreen(ref patrons, ref phoneNumbers, ref patronChoiceDo, patronId, books);
+                            EnterPatronChoiceScreen(ref phoneNumbers, ref patronChoiceDo, patronId);
                         }
                         break;
                     
                     case 3:
-                        _TransactionsServices.CheckOutBook(ref books, ref patrons);
+                        _TransactionsServices.CheckOutBook();
                         break;
                     
                     case 4:
@@ -158,7 +158,7 @@ namespace LibraryManegmentSystem
                 throw;
             }
         }
-        void EnterBookChoice(ref List<Book> books, ref bool bookDo, ref int ids)
+        void EnterBookChoice(ref bool bookDo, ref int ids)
         {
             try
             {
@@ -174,11 +174,11 @@ namespace LibraryManegmentSystem
                 switch (choice)
                 {
                     case 1:
-                        AddBookScreen(ref books, ref ids);
+                        AddBookScreen(ref ids);
                         break;
 
                     case 2:
-                        _bookServices.ShowAvaliableBooks(ref books);
+                        _bookServices.ShowAvaliableBooks();
                         break;
 
                     case 3:
@@ -186,10 +186,10 @@ namespace LibraryManegmentSystem
                         break;
 
                     case 4:
-                        DeleteBookScreen(ref books);
+                        DeleteBookScreen();
                         break;
                     case 5:
-                        _bookServices.SearchForABook(ref books);
+                        _bookServices.SearchForABook();
                         break;
                     case 6:
                         bookDo = false;
@@ -206,7 +206,7 @@ namespace LibraryManegmentSystem
             }
         }
 
-        public void AddBookScreen(ref List<Book> books, ref int ids)
+        public void AddBookScreen(ref int ids)
         {
             try
             {
@@ -222,8 +222,7 @@ namespace LibraryManegmentSystem
                     BorrowDate = borrowedDate, ToBeRetaurnedDate = dateToBeRet, Avaliable = true, BorrowById = 0,
                     Number = ids, Id = new Guid()
                 };
-                _bookRepository.AddBook(newBook, ref books);
-                Console.WriteLine(books.First().Author);
+                _bookRepository.AddBook(newBook);
             }
             catch (Exception e)
             {
@@ -231,7 +230,7 @@ namespace LibraryManegmentSystem
                 throw;
             }
         }
-        public void DeleteBookScreen(ref List<Book> books)
+        public void DeleteBookScreen()
         {
             try
             {
@@ -244,18 +243,18 @@ namespace LibraryManegmentSystem
                 switch (searchChoice)
                 {
                     case 1:
-                        bookID = _bookServices.ChooseBookById(ref books);
+                        bookID = _bookServices.ChooseBookById();
                         break;
                     case 2:
-                        bookID = (int)_bookServices.SearchForABook(ref books);
+                        bookID = (int)_bookServices.SearchForABook();
                         break;
                     default:
                         Console.WriteLine("Please enter one of the following choices only.");
-                        DeleteBookScreen(ref books);
+                        DeleteBookScreen();
                         break;
                 }
 
-                _bookRepository.DeleteBook(ref books, bookID);
+                _bookRepository.DeleteBook(bookID);
                 Console.WriteLine("Book deleted Successfully");
             }
             catch (Exception e)
@@ -265,11 +264,13 @@ namespace LibraryManegmentSystem
             }
         }
 
-        void EnterPatronChoiceScreen(ref List<Patron> patrons, ref List<string> phoneNumbers, ref bool patronChoiceDo,
-            int patronId, List<Book> books)
+        void EnterPatronChoiceScreen(ref List<string> phoneNumbers, ref bool patronChoiceDo,
+            int patronId)
         {
             try
             {
+                List<Patron> patrons = _patronRepository.GetAllPatrons();
+
                 Console.WriteLine("--------------------------------");
                 Console.WriteLine("Enter your choice:");
                 Console.WriteLine("1. Add Patron");
@@ -283,20 +284,20 @@ namespace LibraryManegmentSystem
                 switch (patronChoice)
                 {
                     case 1:
-                        AddPatronScreen(ref patrons, ref phoneNumbers, patronId);
+                        AddPatronScreen(ref phoneNumbers, patronId);
                         break;
                     case 2:
-                        _patronServices.ShowAllPatrons(ref patrons);
+                        _patronServices.ShowAllPatrons();
                         break;
 
                     case 3:
                         EditPatronInfoByIdScreen();
                         break;
                     case 4:
-                        _patronServices.ShowPatronBooks(ref patrons, ref books);
+                        _patronServices.ShowPatronBooks();
                         break;
                     case 5:
-                        _patronServices.SearchForAPatron(ref patrons);
+                        _patronServices.SearchForAPatron();
                         break;
                     case 6:
                         DeletePatronScreen(ref patrons);
@@ -319,6 +320,7 @@ namespace LibraryManegmentSystem
         {
             try
             {
+                List<Patron> patrons = _patronRepository.GetAllPatrons();
                 Console.WriteLine("Patron Names:");
                 foreach(Patron patroni in patrons)
                 {
@@ -351,7 +353,7 @@ namespace LibraryManegmentSystem
                         Console.WriteLine("Please enter one of the following choices only.");
                         break;
                 }
-                _patronRepository.EditPatronInfoById(ref patrons, patronIdtoEdit, newPatron);
+                _patronRepository.EditPatronInfoById(patronIdtoEdit, newPatron);
             }
             catch (Exception e)
             {
@@ -365,7 +367,7 @@ namespace LibraryManegmentSystem
             try
             {
                 Console.WriteLine("--------------------------------");
-                _bookServices.ShowAvaliableBooks(ref books);
+                _bookServices.ShowAvaliableBooks();
                 var bookId = UtilsClass.EnterNotEmptyInt("Enter book id to edit");
                 Console.WriteLine("1. Book title");
                 Console.WriteLine("2. Book author");
@@ -374,7 +376,6 @@ namespace LibraryManegmentSystem
                 Console.WriteLine("5. Book avaliability");
                 Console.WriteLine("What do you want to edit:");
                 var editChoice = UtilsClass.EnterNotEmptyInt("");
-                var boo = books.FirstOrDefault(x => x.Number == bookId);
                 Book newBook = new();
                 
                 switch (editChoice)
@@ -419,7 +420,7 @@ namespace LibraryManegmentSystem
                         Console.WriteLine("Please enter one of the following choices only.");
                         break;
                 }
-                _bookRepository.EditBookById(ref books, bookId, newBook);
+                _bookRepository.EditBookById(bookId, newBook);
 
             }
             catch (Exception e)
@@ -428,7 +429,7 @@ namespace LibraryManegmentSystem
                 throw;
             }
         }
-        void AddPatronScreen(ref List<Patron> patrons, ref List<string> phoneNumbers, int patronId)
+        void AddPatronScreen(ref List<string> phoneNumbers, int patronId)
         {
             try
             {
@@ -440,7 +441,7 @@ namespace LibraryManegmentSystem
                 List<Book> borroweds = new List<Book>();
                 Patron newPatron = new Patron()
                     { Name = patronName, Email = patronEmail, Id = patronId, PhoneNumber = patronPhone };
-                _patronRepository.AddPatron(ref newPatron, ref patrons);
+                _patronRepository.AddPatron(newPatron);
             }
             catch (Exception e)
             {
@@ -468,11 +469,11 @@ namespace LibraryManegmentSystem
                 switch (deleteChoice)
                 {
                     case 1:
-                        deleteId = _patronServices.SearchForAPatron(ref patrons);
+                        deleteId = _patronServices.SearchForAPatron();
                         break;
 
                     case 2:
-                        deleteId = _patronServices.ChoosePatronById(patrons);
+                        deleteId = _patronServices.ChoosePatronById();
                         break;
 
                     default:
@@ -480,7 +481,7 @@ namespace LibraryManegmentSystem
                         DeletePatronScreen(ref patrons);
                         break;
                 }
-                _patronRepository.DeletePatron(ref patrons, deleteId);
+                _patronRepository.DeletePatron(deleteId);
             }
             catch (Exception e)
             {

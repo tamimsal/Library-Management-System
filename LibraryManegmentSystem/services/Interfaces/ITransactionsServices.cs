@@ -4,5 +4,5 @@ namespace LibraryManegmentSystem.services.Interfaces;
 
 public interface ITransactionsServices
 {
-    public void CheckOutBook(ref List<Book> books, ref List<Patron> patrons);
+    public void CheckOutBook();
 }

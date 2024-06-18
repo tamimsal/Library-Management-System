@@ -5,7 +5,8 @@ namespace LibraryManegmentSystem.repositories.Implementations
 {
     public class PatronRepository : IPatronRepository
     {
-        public void DeletePatron(ref List<Patron> patrons, int id)
+        List<Patron> patrons = new();
+        public void DeletePatron(int id)
         {
             try
             {
@@ -18,7 +19,7 @@ namespace LibraryManegmentSystem.repositories.Implementations
                 throw;
             }
         }
-        public void EditPatronInfoById(ref List<Patron> patrons, int patronIdtoEdit, Patron newPatron)
+        public void EditPatronInfoById(int patronIdtoEdit, Patron newPatron)
         {
             try
             {
@@ -42,7 +43,7 @@ namespace LibraryManegmentSystem.repositories.Implementations
                 throw;
             }
         }
-        public void AddPatron(ref Patron newPatron, ref List<Patron> patrons)
+        public void AddPatron(Patron newPatron)
         {
             try
             {
@@ -53,6 +54,10 @@ namespace LibraryManegmentSystem.repositories.Implementations
                 Console.WriteLine(e);
                 throw;
             }
+        }
+        public List<Patron> GetAllPatrons()
+        {
+            return patrons;
         }
     }
 }

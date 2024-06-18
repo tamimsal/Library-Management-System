@@ -4,9 +4,10 @@ namespace LibraryManegmentSystem.repositories.Interfaces
 {
     public interface IPatronRepository
     {
-        void DeletePatron(ref List<Patron> patrons, int id);
-        void EditPatronInfoById(ref List<Patron> patrons, int patronIdtoEdit, Patron newPatron);
-        void AddPatron(ref Patron newPatron, ref List<Patron> patrons);
+        void DeletePatron(int id);
+        void EditPatronInfoById(int patronIdtoEdit, Patron newPatron);
+        void AddPatron(Patron newPatron);
+        List<Patron> GetAllPatrons();
 
     }
 }

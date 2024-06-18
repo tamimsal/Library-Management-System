@@ -2,18 +2,21 @@ using LibraryManegmentSystem.models;
 using LibraryManegmentSystem.repositories.Interfaces;
 using LibraryManegmentSystem.Utilties;
 
+
 namespace LibraryManegmentSystem.repositories.Implementations
 {
+
     public class BookRepository : IBookRepository
     {
         // move books/ patrons here 
-        //public List<Book> books = new();
+        List<Book> _books = new();
 
-        public void EditBookById(ref List<Book> books, int bookNumberToEdit, Book newBook)
+        public void EditBookById(int bookNumberToEdit, Book newBook)
         {
             try
             {
-                var bookToEdit = books.FirstOrDefault(x => x.Number == bookNumberToEdit);
+                
+                var bookToEdit = _books.FirstOrDefault(x => x.Number == bookNumberToEdit);
                 
                 if (newBook.Avaliable != null)
                 {
@@ -43,12 +46,12 @@ namespace LibraryManegmentSystem.repositories.Implementations
             }
         }
 
-        public void DeleteBook(ref List<Book> books, int number)
+        public void DeleteBook(int number)
         {
             try
             {
-                var toDeleteBook = books.FirstOrDefault(x => x.Number == number);
-                books.Remove(toDeleteBook);
+                var toDeleteBook = _books.FirstOrDefault(x => x.Number == number);
+                _books.Remove(toDeleteBook);
             }
             catch (Exception e)
             {
@@ -57,11 +60,11 @@ namespace LibraryManegmentSystem.repositories.Implementations
             }
         }
 
-        public void AddBook(Book book, ref List<Book> books)
+        public void AddBook(Book book)
         {
             try
             {
-                books.Add(book);
+                _books.Add(book);
             }
             catch (Exception e)
             {
@@ -71,17 +74,23 @@ namespace LibraryManegmentSystem.repositories.Implementations
             // return guid id
         }
 
-        public Book GetBook(int number, List<Book> books)
+        public Book GetBook(int number)
         {
             try
             {
-                return books.FirstOrDefault(x => x.Number == number); // use this
+                return _books.FirstOrDefault(x => x.Number == number); // use this
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public List<Book> GetAllBooks()
+        {
+            Console.WriteLine(_books.FirstOrDefault().Title);
+            return _books;
         }
     }
 }
